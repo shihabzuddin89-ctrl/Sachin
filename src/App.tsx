@@ -20,8 +20,6 @@ import FilmsSection from './components/FilmsSection';
 import TipsSection from './components/TipsSection';
 import Testimonials from './components/Testimonials';
 import ContactSection from './components/ContactSection';
-import CustomizerPanel from './components/CustomizerPanel';
-
 // Importing Brand New Individual Page Components
 import AboutPage from './components/AboutPage';
 import PortfolioPage from './components/PortfolioPage';
@@ -272,15 +270,6 @@ export default function App() {
           )}
         </motion.main>
       </AnimatePresence>
-
-      {/* 9. Interactive Visual Editor Panel sidebar */}
-      <CustomizerPanel 
-        config={config}
-        onChangeConfig={setConfig}
-        onResetToDefault={handleResetToDefault}
-        photos={photos}
-        onChangePhotos={setPhotos}
-      />
 
       {/* 10. Lightbox Lighthouse Modal overlay */}
       <ImageModal
