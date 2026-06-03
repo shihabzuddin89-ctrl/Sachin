@@ -1,0 +1,6 @@
+{
+  "name": "Sourav Sachin Photo + Film",
+  "description": "An elegant, editorial-style wedding photography and film portfolio with smooth scroll animations, refined transitions, and beautiful typography.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

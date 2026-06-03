@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@300;400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Montserrat", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Custom smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Elegant scrollbar styling */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(180, 150, 110, 0.3);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(180, 150, 110, 0.6);
+}
+
+/* Keyframe animations for luxurious Ken Burns slideshow */
+@keyframes kenburns {
+  0% { transform: scale(1.02) translate(0, 0); }
+  50% { transform: scale(1.08) translate(-0.5%, -0.5%); }
+  100% { transform: scale(1.02) translate(0, 0); }
+}
+
+.ken-burns-active {
+  animation: kenburns 16s ease-in-out infinite;
+}
+
+/* Custom class for seamless text masking */
+.text-stroke {
+  -webkit-text-stroke: 1px currentColor;
+  color: transparent;
+}
+
