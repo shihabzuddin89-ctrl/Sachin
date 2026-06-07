@@ -1,159 +1,190 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Camera, MapPin, Plus, ExternalLink } from 'lucide-react';
+import { Quote, MapPin, Calendar, ArrowRight } from 'lucide-react';
 import { PhotoItem, ThemeConfig } from '../types';
 
 interface GallerySectionProps {
   config: ThemeConfig;
-  photos: PhotoItem[];
-  onSelectPhoto: (index: number) => void;
+  photos?: PhotoItem[];
+  onSelectPhoto?: (index: number) => void;
+  featuredOnly?: boolean;
+  onNavigate?: (view: string) => void;
 }
 
-type FilterType = 'all' | 'wedding' | 'editorial' | 'film' | 'lifestyle';
+interface ClientReview {
+  id: string;
+  quote: string;
+  author: string;
+  location: string;
+  date: string;
+  imageUrl: string;
+  rating: number;
+}
 
-export default function GallerySection({ config, photos, onSelectPhoto }: GallerySectionProps) {
-  const [filter, setFilter] = useState<FilterType>('all');
+const PRESET_CLIENT_REVIEWS: ClientReview[] = [
+  {
+    id: 'cr-1',
+    quote: "Sourav has this absolute magic to capture raw, authentic emotions in a way that feels incredibly cinematic yet fully comfortable. We are forever in awe of our photos.",
+    author: "Eleanor & James",
+    location: "Royal York Toronto",
+    date: "September 2025",
+    imageUrl: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800",
+    rating: 5
+  },
+  {
+    id: 'cr-2',
+    quote: "The visual storytelling of our wedding highlights was breathtaking. He captures micro-moments that you don't even remember happening. Truly timeless investment.",
+    author: "Victoria & Robert",
+    location: "Casa Loma Suite",
+    date: "July 2025",
+    imageUrl: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800",
+    rating: 5
+  },
+  {
+    id: 'cr-3',
+    quote: "We are both camera-shy, but Sourav made us feel so secure, unposed, and perfectly authentic. The resulting images feel like gorgeous frames of a romantic film.",
+    author: "Isabella & Lucas",
+    location: "The Distillery District",
+    date: "October 2025",
+    imageUrl: "https://images.unsplash.com/photo-1520854221256-17451cc35953?q=80&w=800",
+    rating: 5
+  },
+  {
+    id: 'cr-4',
+    quote: "The composition, editorial eye, and play of natural light are spectacular. Every photo feels like a grand romantic magazine spread. Absolute master of craft.",
+    author: "Charlotte & Oliver",
+    location: "Niagara-on-the-Lake",
+    date: "August 2025",
+    imageUrl: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=800",
+    rating: 5
+  },
+  {
+    id: 'cr-5',
+    quote: "Capturing genuine emotion is hard, but he makes it look effortless. Our albums feel high-contrast, deeply cozy, and exceptionally luxurious. Recommended 1000x!",
+    author: "Sophia & Mason",
+    location: "High Park, Toronto",
+    date: "June 2025",
+    imageUrl: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?q=80&w=800",
+    rating: 5
+  },
+  {
+    id: 'cr-6',
+    quote: "Beyond the breathtaking photos, his warmth and energy made our day flow beautifully. A phenomenal curator who treated our session like pure poetry.",
+    author: "Aria & Alexander",
+    location: "Evergreen Brick Works",
+    date: "November 2025",
+    imageUrl: "https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=800",
+    rating: 5
+  }
+];
 
-  const filteredPhotos = filter === 'all' 
-    ? photos 
-    : photos.filter(p => p.category === filter);
+export default function GallerySection({ config, onNavigate }: GallerySectionProps) {
+  const [activeIdx, setActiveIdx] = useState(0);
 
-  const categories: { label: string; value: FilterType }[] = [
-    { label: 'SHOW ALL', value: 'all' },
-    { label: 'WEDDING', value: 'wedding' },
-    { label: 'EDITORIAL', value: 'editorial' },
-    { label: 'FILM FRAMES', value: 'film' },
-    { label: 'LIFESTYLE', value: 'lifestyle' },
-  ];
+  // Pick a random next index to "shuffle" one by one automatically
+  const handleShuffle = () => {
+    setActiveIdx((prevIdx) => {
+      let nextIdx = prevIdx;
+      while (nextIdx === prevIdx && PRESET_CLIENT_REVIEWS.length > 1) {
+        nextIdx = Math.floor(Math.random() * PRESET_CLIENT_REVIEWS.length);
+      }
+      return nextIdx;
+    });
+  };
+
+  // Automatically Shuffle one-by-one every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleShuffle();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const review = PRESET_CLIENT_REVIEWS[activeIdx];
+  const isDarkMode = config.themeMode === 'dark';
 
   return (
     <section
       id="portfolio"
-      className={`py-24 md:py-32 px-6 md:px-12 transition-colors duration-500 ${
-        config.themeMode === 'dark' ? 'bg-zinc-950 text-white' : 'bg-white text-zinc-900'
+      className={`relative w-full overflow-hidden transition-colors duration-500 ${
+        isDarkMode ? 'bg-zinc-950 text-white' : 'bg-white text-zinc-900'
       }`}
     >
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header Divider Line */}
-        <div className="flex items-center gap-4 mb-20">
-          <span className="text-[0.62rem] font-mono tracking-[0.45em] text-amber-500 font-bold shrink-0">
-            02 // SIGNATURE WORK
-          </span>
-          <div className="h-[1px] w-full bg-linear-to-r from-amber-500/30 to-transparent" />
-        </div>
+      {/* Absolute fullscreen slider with zero gaps */}
+      <div className="w-full relative overflow-hidden bg-zinc-950 h-[70vh] sm:h-[80vh] md:h-[85vh] lg:h-[90vh] shadow-inner">
+        
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={review.id}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-0 w-full h-full flex flex-col justify-between p-6 sm:p-12 md:p-20 lg:p-24"
+          >
+            {/* Couple Photograph backdrop cover - individual image vivid behind text */}
+            <div className="absolute inset-0 w-full h-full overflow-hidden select-none pointer-events-none">
+              <img
+                src={review.imageUrl}
+                alt={review.author}
+                className="w-full h-full object-cover object-center scale-100 transition-transform duration-[5000ms] ease-out opacity-65"
+                referrerPolicy="no-referrer"
+              />
+              {/* Rich cinematic vignette layers to protect contrast of the elegant text */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/80" />
+            </div>
 
-        {/* Title and Intro */}
-        <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
-          <span className="text-amber-500 text-[0.62rem] md:text-[0.7rem] tracking-[0.45em] uppercase font-sans font-semibold block">
-            SELECTED PORTFOLIO ARCHIVES
-          </span>
-          <h2 className="text-[2rem] sm:text-[3rem] font-light font-serif tracking-tight text-zinc-900 dark:text-zinc-50 leading-tight">
-            Refined{' '}
-            <span className="font-serif italic text-amber-600 font-medium">
-              Signature Work
-            </span>
-          </h2>
-          <div className="w-12 h-[1px] bg-zinc-300 dark:bg-zinc-700 mx-auto" />
-          <p className="text-[0.82rem] uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
-            Capturing the deep, unspoken language of elegant unions.
-          </p>
-        </div>
+            {/* Shuffled index indicator badge */}
+            <div className="relative z-10 flex justify-between items-center w-full">
+              <span className="text-[0.62rem] sm:text-[0.68rem] font-mono tracking-[0.4em] text-amber-500 font-bold">
+                // CLIENT TESTIMONY
+              </span>
+              <span className="text-[0.62rem] sm:text-[0.68rem] font-mono tracking-widest text-amber-400 bg-black/40 backdrop-blur-md border border-amber-500/20 px-3.5 py-1.5 rounded-lg uppercase font-bold">
+                STORY {activeIdx + 1} OF {PRESET_CLIENT_REVIEWS.length}
+              </span>
+            </div>
 
-        {/* Category Filters (Clean pill buttons) */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-12 sm:mb-16">
-          {categories.map((cat) => {
-            const isSelected = filter === cat.value;
-            return (
+            {/* Testimonial Core Content Block */}
+            <div className="relative z-10 max-w-4xl mx-auto text-center space-y-6 sm:space-y-8 my-auto w-full px-4">
+              <div className="relative inline-block">
+                <Quote className="absolute -top-14 -left-14 w-20 h-20 text-amber-500/15 stroke-[0.75] pointer-events-none hidden sm:block" />
+                <p className="text-[1.25rem] sm:text-[1.75rem] md:text-[2.2rem] lg:text-[2.5rem] font-serif font-light leading-relaxed tracking-wide text-zinc-100 italic select-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
+                  “{review.quote}”
+                </p>
+              </div>
+
+              {/* Author and Wedding Event Signature Details */}
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 text-[0.85rem] sm:text-[0.95rem] text-zinc-200 tracking-wide font-serif pt-4 select-none drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                <span className="font-bold text-amber-400 tracking-[0.25em] uppercase text-xs sm:text-sm">
+                  {review.author}
+                </span>
+                <span className="text-zinc-500 hidden sm:inline">•</span>
+                <div className="flex items-center gap-1.5 font-mono text-xs text-zinc-300">
+                  <MapPin className="w-3.5 h-3.5 text-zinc-400" />
+                  <span className="uppercase tracking-[0.15em]">{review.location}</span>
+                </div>
+                <span className="text-zinc-500 hidden sm:inline">•</span>
+                <div className="flex items-center gap-1.5 font-mono text-xs text-zinc-300">
+                  <Calendar className="w-3.5 h-3.5 text-zinc-400" />
+                  <span className="uppercase tracking-[0.15em]">{review.date}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Embedded Action Button - Flush inside full-screen area */}
+            <div className="relative z-10 flex justify-center w-full pt-4">
               <button
-                id={`filter-${cat.value}`}
-                key={cat.value}
-                onClick={() => setFilter(cat.value)}
-                className={`cursor-pointer px-4 sm:px-6 py-2 text-[0.65rem] sm:text-[0.72rem] tracking-[0.25em] font-sans font-medium rounded-full border transition-all duration-300 relative ${
-                  isSelected
-                    ? 'bg-zinc-900 text-white border-zinc-900 dark:bg-white dark:text-zinc-900 dark:border-white'
-                    : 'border-zinc-200 text-zinc-500 hover:border-zinc-400 dark:border-zinc-800 dark:text-zinc-400 dark:hover:border-zinc-500'
-                }`}
+                id="home-portfolio-more-btn"
+                onClick={() => onNavigate && onNavigate('portfolio')}
+                className="group flex items-center gap-3 bg-black/60 hover:bg-amber-500 text-zinc-200 hover:text-black border border-white/25 hover:border-amber-400 px-8 py-3.5 sm:px-10 sm:py-4 rounded-full transition-all duration-500 font-sans text-[0.7rem] sm:text-xs font-bold tracking-[0.25em] uppercase cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.5)] active:scale-95"
               >
-                {cat.label}
+                <span>View Full Signature Work</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" />
               </button>
-            );
-          })}
-        </div>
+            </div>
 
-        {/* Staggered Portfolio Grid */}
-        <motion.div 
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredPhotos.map((photo, index) => {
-              // Map index to original position in 'photos' to open lightbox accurately
-              const originalIndex = photos.findIndex(p => p.id === photo.id);
-              
-              return (
-                <motion.div
-                  id={`gallery-item-${photo.id}`}
-                  key={photo.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95, y: 15 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95, y: 15 }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="group relative cursor-pointer overflow-hidden aspect-[4/5] bg-zinc-100 dark:bg-zinc-900 border border-zinc-100/10 shadow-xs"
-                  onClick={() => onSelectPhoto(originalIndex)}
-                >
-                  {/* Image Core */}
-                  <img
-                    src={photo.url}
-                    alt={photo.title}
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-in-out select-none"
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                  />
-
-                  {/* Gradient bottom overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-
-                  {/* Top Location tag (fades in) */}
-                  <div className="absolute top-4 left-4 z-20 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500 flex items-center gap-1.5 bg-black/50 backdrop-blur-xs px-2.5 py-1 rounded-full border border-white/10">
-                    <MapPin className="w-3 h-3 text-amber-300" />
-                    <span className="text-[0.62rem] font-mono tracking-widest text-zinc-100 uppercase">
-                      {photo.location}
-                    </span>
-                  </div>
-
-                  {/* Top Category Indicator */}
-                  <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500 delay-75 bg-amber-400 text-zinc-950 font-bold font-sans text-[0.55rem] tracking-wider px-2 py-0.5 rounded-sm uppercase">
-                    {photo.category}
-                  </div>
-
-                  {/* Hover Caption Details */}
-                  <div className="absolute bottom-6 left-6 right-6 z-20 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 flex items-end justify-between">
-                    <div>
-                      <p className="text-[0.58rem] font-mono tracking-[0.3em] text-amber-300 uppercase">
-                        EST. {photo.year}
-                      </p>
-                      <h3 className="text-[1.15rem] font-serif font-light text-white tracking-normal leading-tight mt-1">
-                        {photo.title}
-                      </h3>
-                    </div>
-                    
-                    {/* Floating click indicator */}
-                    <div className="p-2 border border-white/30 rounded-full hover:bg-white hover:border-white text-white hover:text-zinc-900 transition-all duration-300 flex items-center justify-center">
-                      <Plus className="w-4 h-4" />
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
-        </motion.div>
-
-        {filteredPhotos.length === 0 && (
-          <div className="text-center py-20 text-zinc-400 font-serif">
-            No dynamic photographs in {filter} yet. Update using the Live Visual Editor on the left!
-          </div>
-        )}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

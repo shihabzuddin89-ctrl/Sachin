@@ -123,14 +123,14 @@ export default function FilmsPage({ config, films }: FilmsPageProps) {
                   <h2 className={`text-2xl font-light tracking-tight font-serif`}>
                     {selectedFilm.title}
                   </h2>
-                  <p className="text-xs text-zinc-400 font-sans">
+                  <p className="text-xs text-zinc-200 font-semibold font-sans">
                      Featuring {selectedFilm.couple} / Commission Archive
                   </p>
                 </div>
 
                 <div className="flex items-center gap-3 bg-zinc-950/60 backdrop-blur-md px-4 py-2 border border-white/10 rounded-xl">
                   <Film className="w-4 h-4 text-amber-500" />
-                  <span className="text-[0.58rem] font-mono tracking-widest text-zinc-400">
+                  <span className="text-[0.58rem] font-mono tracking-widest text-zinc-100 font-semibold">
                     ANALOG KODAK SUPER 8 HIGHLIGHT
                   </span>
                 </div>
@@ -150,7 +150,7 @@ export default function FilmsPage({ config, films }: FilmsPageProps) {
                 <h3 className={`text-xl font-light tracking-tight ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
                   Select Atmospheric Mood
                 </h3>
-                <p className="text-xs text-zinc-500 leading-relaxed font-sans">
+                <p className="text-xs text-zinc-800 dark:text-zinc-200 leading-relaxed font-sans font-medium">
                   We license bespoke instrumental compositions for each film. Toggle the preset soundscapes to experience different atmospheric editing curves.
                 </p>
               </div>
@@ -173,11 +173,11 @@ export default function FilmsPage({ config, films }: FilmsPageProps) {
                         <span className={`text-xs block font-sans font-medium ${isActive ? 'text-amber-500' : 'text-zinc-800 dark:text-zinc-200'}`}>
                           {track.name}
                         </span>
-                        <span className="text-[0.58rem] text-zinc-500 font-mono block">
+                        <span className="text-[0.58rem] text-zinc-700 dark:text-zinc-300 font-mono block font-medium">
                           {track.genre} &middot; {track.bpm}
                         </span>
                       </div>
-                      <span className={`p-2 rounded-lg border shrink-0 ${isActive ? 'border-amber-500 bg-amber-500/10 text-amber-500 animate-pulse' : 'border-zinc-100 dark:border-zinc-800 text-zinc-400'}`}>
+                      <span className={`p-2 rounded-lg border shrink-0 ${isActive ? 'border-amber-500 bg-amber-500/10 text-amber-500 animate-pulse' : 'border-zinc-350 dark:border-zinc-800 text-zinc-650 dark:text-zinc-300'}`}>
                         <Music className="w-3.5 h-3.5" />
                       </span>
                     </div>
@@ -185,12 +185,12 @@ export default function FilmsPage({ config, films }: FilmsPageProps) {
                 })}
               </div>
 
-              <div className="border-t border-zinc-100 dark:border-zinc-800 pt-6 mt-6">
-                <div className="flex justify-between items-center text-[0.6rem] font-mono tracking-widest text-zinc-400 uppercase">
+              <div className="border-t border-zinc-200 dark:border-zinc-800 pt-6 mt-6">
+                <div className="flex justify-between items-center text-[0.6rem] font-mono tracking-widest text-zinc-700 dark:text-zinc-300 uppercase font-semibold">
                   <span>Selected Mood:</span>
                   <span className="text-amber-500">{soundscapes[activeSoundtrackIndex].bpm} preset</span>
                 </div>
-                <p className="text-[0.62rem] text-zinc-500 mt-2 leading-relaxed">
+                <p className="text-[0.65rem] text-zinc-805 dark:text-zinc-200 mt-2 leading-relaxed font-medium">
                   {soundscapes[activeSoundtrackIndex].vibe}
                 </p>
               </div>
@@ -243,7 +243,7 @@ export default function FilmsPage({ config, films }: FilmsPageProps) {
                     <h4 className="text-sm font-semibold tracking-tight text-zinc-800 dark:text-zinc-200">
                       {film.title}
                     </h4>
-                    <p className="text-[0.62rem] text-zinc-400 font-sans tracking-wide">
+                    <p className="text-[0.65rem] text-zinc-700 dark:text-zinc-300 font-sans font-medium tracking-wide">
                       Couple: {film.couple} &middot; Art Cut
                     </p>
                   </div>

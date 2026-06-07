@@ -60,13 +60,13 @@ export default function AboutPage({ config, onNavigate }: AboutPageProps) {
                 MAIN CREATIVE KIT
               </span>
               <div className="grid grid-cols-2 gap-4 text-xs">
-                <div className="p-4 border rounded-xl border-zinc-100 dark:border-zinc-800">
-                  <span className="font-bold text-zinc-800 dark:text-zinc-200 block">Leica SL2 Duo</span>
-                  <span className="text-[0.62rem] text-zinc-400 font-mono">50mm f/1.4 &middot; 35mm f/2.0</span>
+                <div className="p-4 border rounded-xl border-zinc-200 dark:border-zinc-700">
+                  <span className="font-bold text-zinc-900 dark:text-zinc-100 block">Leica SL2 Duo</span>
+                  <span className="text-[0.65rem] text-zinc-700 dark:text-zinc-300 font-mono font-medium">50mm f/1.4 &middot; 35mm f/2.0</span>
                 </div>
-                <div className="p-4 border rounded-xl border-zinc-100 dark:border-zinc-800">
-                  <span className="font-bold text-zinc-800 dark:text-zinc-200 block">Pentax 67 Film</span>
-                  <span className="text-[0.62rem] text-zinc-400 font-mono">105mm f/2.4 &middot; Portra 400</span>
+                <div className="p-4 border rounded-xl border-zinc-200 dark:border-zinc-700">
+                  <span className="font-bold text-zinc-900 dark:text-zinc-100 block">Pentax 67 Film</span>
+                  <span className="text-[0.65rem] text-zinc-700 dark:text-zinc-300 font-mono font-medium">105mm f/2.4 &middot; Portra 400</span>
                 </div>
               </div>
             </div>
@@ -84,13 +84,13 @@ export default function AboutPage({ config, onNavigate }: AboutPageProps) {
               <div className="w-16 h-[1.5px] bg-amber-400/80 my-4" />
             </div>
 
-            <div className="prose text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed font-light space-y-6">
+            <div className="prose text-sm text-zinc-800 dark:text-zinc-200 leading-relaxed font-normal space-y-6">
               <p>
-                 Hello there, I\'m <span className="font-semibold text-amber-500">{config.studioName}</span>. Most couples who step before my lens start by telling me: 
-                <span className="italic"> \"We have never done this, we feel so clumsy in front of cameras.\"</span> My complete mission is to erase that fear entirely.
+                 Hello there, I'm <span className="font-semibold text-amber-500">{config.studioName}</span>. Most couples who step before my lens start by telling me: 
+                <span className="italic"> "We have never done this, we feel so clumsy in front of cameras."</span> My complete mission is to erase that fear entirely.
               </p>
               <p>
-                My working philosophy doesn\'t rely on static, robot-like poses or forced smiles. Instead, we establish real conversations, gentle walks, and tailored interactions. We allow the authentic gravity of your kinship to surface.
+                My working philosophy doesn't rely on static, robot-like poses or forced smiles. Instead, we establish real conversations, gentle walks, and tailored interactions. We allow the authentic gravity of your kinship to surface.
               </p>
               <p>
                 Whether blending digital medium format cameras for absolute sharpness or classic Kodak Super 8 reels to capture nostalgic, flickering motion, we preserve your legacy with absolute devotion. No distractions, just beauty.
@@ -109,7 +109,7 @@ export default function AboutPage({ config, onNavigate }: AboutPageProps) {
                     <span className="text-amber-500 text-xs font-bold font-sans block">
                       0{idx + 1} &middot; {phil.title}
                     </span>
-                    <p className="text-[0.65rem] text-zinc-400 dark:text-zinc-500 leading-relaxed font-sans">
+                    <p className="text-[0.68rem] text-zinc-750 dark:text-zinc-300 leading-relaxed font-sans font-medium">
                       {phil.desc}
                     </p>
                   </div>
@@ -129,8 +129,8 @@ export default function AboutPage({ config, onNavigate }: AboutPageProps) {
             <h2 className={`text-3xl font-light tracking-tight ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
                Our Creative Evolution
             </h2>
-            <p className="text-xs text-zinc-400">
-               A十年 historical trace of our photography philosophy, commissions, and technological maturity since inception.
+            <p className="text-xs text-zinc-650 dark:text-zinc-300 font-semibold">
+               A decade-long historical trace of our photography philosophy, commissions, and technological maturity since inception.
             </p>
           </div>
 
@@ -142,7 +142,7 @@ export default function AboutPage({ config, onNavigate }: AboutPageProps) {
               >
                 <div className="flex justify-between items-baseline">
                   <span className="text-4xl font-light text-amber-500 font-sans">{y.year}</span>
-                  <span className="text-[0.55rem] font-mono text-zinc-400 uppercase tracking-widest bg-zinc-200/55 dark:bg-zinc-800/60 px-2.5 py-1 rounded-full">
+                  <span className="text-[0.55rem] font-mono text-zinc-700 dark:text-zinc-200 uppercase tracking-widest bg-zinc-200/80 dark:bg-zinc-800/80 px-2.5 py-1 rounded-full font-semibold">
                     {y.tag}
                   </span>
                 </div>
@@ -150,7 +150,7 @@ export default function AboutPage({ config, onNavigate }: AboutPageProps) {
                   <h4 className="text-xs font-semibold text-zinc-800 dark:text-zinc-200 uppercase font-mono tracking-wider">
                     {y.title}
                   </h4>
-                  <p className="text-[0.65rem] text-zinc-550 dark:text-zinc-400 leading-relaxed">
+                  <p className="text-[0.68rem] text-zinc-700 dark:text-zinc-300 font-medium leading-relaxed">
                     {y.desc}
                   </p>
                 </div>
@@ -172,7 +172,7 @@ export default function AboutPage({ config, onNavigate }: AboutPageProps) {
             <h3 className="text-2xl font-light font-serif tracking-tight text-white">
               Currently Booking international dates for 2026 / 2027
             </h3>
-            <p className="text-xs text-zinc-400 leading-relaxed font-sans mt-2">
+            <p className="text-xs text-zinc-200 leading-relaxed font-sans font-medium mt-2">
               From historic French villas, raw coastlines of Big Sur California, to luxury Tuscan elopements, we travel for your kinematics. Let\'s coordinate your bespoke travel package.
             </p>
           </div>

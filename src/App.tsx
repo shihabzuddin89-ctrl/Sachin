@@ -11,7 +11,6 @@ import { ThemeConfig, PhotoItem, FilmItem, ReviewItem, TipItem } from './types';
 
 // Importing Core Components
 import Header from './components/Header';
-import HeroSlider from './components/HeroSlider';
 import AboutSection from './components/AboutSection';
 import MarqueeBanner from './components/MarqueeBanner';
 import GallerySection from './components/GallerySection';
@@ -20,6 +19,9 @@ import FilmsSection from './components/FilmsSection';
 import TipsSection from './components/TipsSection';
 import Testimonials from './components/Testimonials';
 import ContactSection from './components/ContactSection';
+import FilmGlance from './components/FilmGlance';
+import DoublePhotoSplit from './components/DoublePhotoSplit';
+import Footer from './components/Footer';
 // Importing Brand New Individual Page Components
 import AboutPage from './components/AboutPage';
 import PortfolioPage from './components/PortfolioPage';
@@ -81,19 +83,14 @@ export default function App() {
   };
 
   // Typography Class compilation
-  const fontPresetClassName = 
-    config.fontPreset === 'editorial' 
-      ? 'font-serif' 
-      : config.fontPreset === 'classic' 
-      ? 'font-serif italic text-amber-900/95 dark:text-zinc-100' 
-      : 'font-mono tracking-tight text-zinc-950 dark:text-zinc-200';
+  const fontPresetClassName = 'font-sans antialiased text-zinc-900 dark:text-zinc-50 leading-relaxed font-normal';
 
   return (
     <div className={`min-h-screen transition-colors duration-500 selection:bg-amber-300 selection:text-zinc-950 pb-12 ${fontPresetClassName} ${
       config.themeMode === 'cream' 
         ? 'bg-[#FAF6F0]' 
         : config.themeMode === 'dark' 
-        ? 'bg-zinc-950 text-white' 
+        ? 'bg-zinc-950 text-white dark' 
         : 'bg-white'
     }`}>
       {/* 1. Header Navigation block */}
@@ -115,8 +112,8 @@ export default function App() {
         >
           {currentPage === 'home' && (
             <div id="home-view" className="space-y-0">
-              {/* 1. Hero Section Slider block */}
-              <HeroSlider 
+              {/* 1. Full Screen Editorial Double Photo Split Hero */}
+              <DoublePhotoSplit 
                 config={config} 
                 photos={photos} 
               />
@@ -124,79 +121,28 @@ export default function App() {
               {/* 2. About Section Profile block */}
               <AboutSection 
                 config={config} 
+                onNavigate={handleNavigate}
               />
               
-              {/* Profile Read More Button decoration */}
-              <div className="flex justify-center pb-20 -mt-8">
-                <button
-                  id="home-about-more-btn"
-                  onClick={() => handleNavigate('about')}
-                  className="px-6 py-3 border border-amber-500/30 hover:border-amber-500 text-amber-500 font-sans text-[0.68rem] tracking-[0.25em] uppercase rounded-full transition-all hover:-translate-y-0.5 cursor-pointer"
-                >
-                  READ MY PHILOSOPHY & Timeline &rarr;
-                </button>
-              </div>
-
-              {/* Marquee Banner */}
-              <MarqueeBanner config={config} />
-
-              {/* 3. Filterable Signature Gallery block */}
+              {/* 3. Filterable Signature Gallery block (Curated for Home) */}
               <GallerySection 
                 config={config} 
                 photos={photos} 
                 onSelectPhoto={handleOpenLightbox}
+                featuredOnly={true}
+                onNavigate={handleNavigate}
               />
 
-              {/* View Full Portfolio Button decoration */}
-              <div className="flex justify-center pb-24 -mt-4">
-                <button
-                  id="home-portfolio-more-btn"
-                  onClick={() => handleNavigate('portfolio')}
-                  className="px-6 py-3 border border-amber-500/30 hover:border-amber-500 text-amber-500 font-sans text-[0.68rem] tracking-[0.25em] uppercase rounded-full transition-all hover:-translate-y-0.5 cursor-pointer"
-                >
-                  EXPLORE PORTFOLIO STYLES &rarr;
-                </button>
-              </div>
-
-              {/* 4. Optional Film Reel block */}
+              {/* Cinematic Video/Film Option Glance */}
               {config.showFilms && (
-                <div className="space-y-0">
-                  <FilmsSection 
-                    config={config} 
-                    films={films} 
-                  />
-                  <div className="flex justify-center pb-24">
-                    <button
-                      id="home-films-more-btn"
-                      onClick={() => handleNavigate('films')}
-                      className="px-6 py-3 border border-amber-500/30 hover:border-amber-500 text-amber-500 font-sans text-[0.68rem] tracking-[0.25em] uppercase rounded-full transition-all hover:-translate-y-0.5 cursor-pointer"
-                    >
-                      ENTER THEATER ROOM &rarr;
-                    </button>
-                  </div>
-                </div>
+                <FilmGlance 
+                  config={config} 
+                  films={films} 
+                  onNavigate={handleNavigate} 
+                />
               )}
 
-              {/* 5. Optional Tips Guidelines accordion */}
-              {config.showTips && (
-                <div id="tips-block" className="space-y-0">
-                  <TipsSection 
-                    config={config} 
-                    tips={tips} 
-                  />
-                  <div className="flex justify-center pb-24">
-                    <button
-                      id="home-faq-more-btn"
-                      onClick={() => handleNavigate('faq')}
-                      className="px-6 py-3 border border-amber-500/30 hover:border-amber-500 text-amber-500 font-sans text-[0.68rem] tracking-[0.25em] uppercase rounded-full transition-all hover:-translate-y-0.5 cursor-pointer"
-                    >
-                      BROWSE ALL PERSISTENT FAQS &rarr;
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* 6. Optional Testimonial Carousel block */}
+              {/* 4. Optional Testimonial Carousel block */}
               {config.showReviews && (
                 <Testimonials 
                   config={config} 
@@ -204,19 +150,10 @@ export default function App() {
                 />
               )}
 
-              {/* 7. Minimalist Booking Form landing teaser block */}
+              {/* 5. Minimalist Booking Form landing teaser block */}
               <ContactSection 
                 config={config} 
               />
-              <div className="flex justify-center pb-12">
-                <button
-                  id="home-register-more-btn"
-                  onClick={() => handleNavigate('contact')}
-                  className="px-6 py-3 border border-amber-500/35 bg-amber-500/10 hover:bg-amber-500 text-amber-500 hover:text-zinc-950 font-sans text-[0.68rem] tracking-[0.25em] uppercase rounded-full transition-all hover:-translate-y-0.5 cursor-pointer"
-                >
-                  OPEN BESPOKE SCHEDULER SUITE &rarr;
-                </button>
-              </div>
             </div>
           )}
 
@@ -270,6 +207,11 @@ export default function App() {
           )}
         </motion.main>
       </AnimatePresence>
+
+      <Footer 
+        config={config} 
+        onNavigate={handleNavigate} 
+      />
 
       {/* 10. Lightbox Lighthouse Modal overlay */}
       <ImageModal

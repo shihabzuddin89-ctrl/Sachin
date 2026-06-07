@@ -56,7 +56,7 @@ export default function FilmsSection({ config, films }: FilmsSectionProps) {
             <div className="w-16 h-[1.5px] bg-amber-400/80 mr-auto" />
           </div>
 
-          <p className="max-w-md text-[0.88rem] leading-relaxed text-zinc-500 dark:text-zinc-400 font-sans font-light">
+          <p className="max-w-md text-[0.88rem] leading-relaxed text-zinc-800 dark:text-zinc-200 font-sans font-normal">
             Motion captures the fleeting dialogue, the gasps of breath, and the warm laughter in sequences that feel like high-fashion documentary archives.
           </p>
         </div>
@@ -117,7 +117,7 @@ export default function FilmsSection({ config, films }: FilmsSectionProps) {
                 <h3 className="text-[1.25rem] font-serif font-light leading-snug group-hover:text-amber-300 transition-colors duration-300">
                   {film.title}
                 </h3>
-                <p className="text-[0.72rem] font-sans tracking-[0.15em] text-zinc-400 uppercase">
+                <p className="text-[0.72rem] font-sans tracking-[0.15em] text-zinc-200 font-semibold uppercase">
                   FEATURING {film.couple}
                 </p>
               </div>

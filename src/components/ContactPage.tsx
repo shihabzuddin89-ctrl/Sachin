@@ -89,7 +89,7 @@ export default function ContactPage({ config }: ContactPageProps) {
               }`}>
                 Tell me <span className="italic font-serif text-amber-500">everything</span>.
               </h1>
-              <p className="text-xs text-zinc-500 uppercase tracking-widest max-w-xl leading-relaxed">
+              <p className="text-xs text-zinc-950 dark:text-zinc-50 uppercase tracking-widest max-w-xl leading-relaxed font-bold">
                 By maintaining a highly strict commission cap of 20 celebrations annually, we commit entirely to styling your heritage story. Complete this application to get a personalized quote.
               </p>
             </div>
@@ -111,7 +111,7 @@ export default function ContactPage({ config }: ContactPageProps) {
                   </span>
                   <div className="space-y-2">
                     <h3 className="text-2xl font-light font-serif">Inquiry Registered</h3>
-                    <p className="text-xs text-zinc-500 max-w-md mx-auto leading-relaxed">
+                    <p className="text-xs text-zinc-950 dark:text-zinc-50 max-w-md mx-auto leading-relaxed font-bold">
                       Thank you for trusting our studio. Clara, our lead administrative coordinator is already cataloging your venue plans. Expect a handcrafted wedding proposal in your inbox within 12 hours.
                     </p>
                   </div>
@@ -149,7 +149,7 @@ export default function ContactPage({ config }: ContactPageProps) {
                   }`}
                 >
                   {/* Step Indicators */}
-                  <div className="flex justify-between items-center text-[0.6rem] font-mono tracking-widest text-zinc-400">
+                  <div className="flex justify-between items-center text-[0.6rem] font-mono tracking-widest text-zinc-950 dark:text-zinc-50 font-bold">
                     <span className={formStep === 1 ? 'text-amber-500 font-bold' : ''}>1. CORE DATA</span>
                     <span className="w-8 h-[1px] bg-zinc-200 dark:bg-zinc-800" />
                     <span className={formStep === 2 ? 'text-amber-500 font-bold' : ''}>2. ATMOSPHERE</span>
@@ -181,7 +181,7 @@ export default function ContactPage({ config }: ContactPageProps) {
                         </div>
 
                         <div className="space-y-2">
-                          <label className="text-[0.62rem] font-mono tracking-widest text-zinc-400 uppercase block">
+                          <label className="text-[0.62rem] font-mono tracking-widest text-zinc-950 dark:text-zinc-50 font-bold uppercase block">
                             Partner\'s Name (Optional)
                           </label>
                           <input
@@ -349,7 +349,7 @@ export default function ContactPage({ config }: ContactPageProps) {
                           <span className="text-[0.65rem] font-mono text-zinc-400 block uppercase">
                             AUTHENTIC ARCHIVES GUARANTEE
                           </span>
-                          <span className="text-[0.6rem] text-zinc-500 block leading-relaxed uppercase">
+                          <span className="text-[0.6rem] text-zinc-950 dark:text-zinc-50 block leading-relaxed uppercase font-semibold">
                             Your reservation respects strict, custom visual direction. We ensure secure delivery of metadata frames.
                           </span>
                         </div>
@@ -411,7 +411,7 @@ export default function ContactPage({ config }: ContactPageProps) {
                 <h3 className={`text-xl font-light tracking-tight ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
                   Book a live studio consult
                 </h3>
-                <p className="text-xs text-zinc-400 leading-relaxed font-sans">
+                <p className="text-xs text-zinc-950 dark:text-zinc-50 leading-relaxed font-sans font-semibold">
                   Let’s schedule a 20-minute digital meeting to walk through albums, discuss vendor coordination, and verify date availability.
                 </p>
               </div>
@@ -501,7 +501,7 @@ export default function ContactPage({ config }: ContactPageProps) {
                 <span className="font-mono text-amber-500 text-[0.55rem] tracking-[0.35em] uppercase block">
                   OFFICE COORDINATES
                 </span>
-                <p className="text-zinc-600 dark:text-zinc-300 font-sans tracking-wide">
+                <p className="text-zinc-950 dark:text-zinc-50 font-sans tracking-wide font-bold">
                   Toronto Waterfront Studios, Queens Quay West, Suite 412, Toronto, Ontario
                 </p>
               </div>
@@ -510,7 +510,7 @@ export default function ContactPage({ config }: ContactPageProps) {
                 <span className="font-mono text-amber-500 text-[0.55rem] tracking-[0.35em] uppercase block">
                   REPRESENTATIVE EMAIL
                 </span>
-                <p className="text-zinc-600 dark:text-zinc-400 font-mono tracking-wider">
+                <p className="text-zinc-950 dark:text-zinc-50 font-mono tracking-wider font-bold">
                   studio@pritoreza.ca &middot; support@pritoreza.ca
                 </p>
               </div>

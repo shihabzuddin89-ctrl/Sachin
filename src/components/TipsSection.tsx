@@ -49,7 +49,7 @@ export default function TipsSection({ config, tips }: TipsSectionProps) {
             </span>
           </h2>
           <div className="w-12 h-[1px] bg-zinc-300 dark:bg-zinc-700 mx-auto" />
-          <p className="text-[0.82rem] uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
+          <p className="text-[0.85rem] uppercase tracking-widest text-zinc-700 dark:text-zinc-350 font-semibold">
             Priceless guidelines directly from our decade in the field.
           </p>
         </div>
@@ -105,7 +105,7 @@ export default function TipsSection({ config, tips }: TipsSectionProps) {
                       transition={{ duration: 0.35, ease: 'easeInOut' }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 sm:px-8 pb-8 text-[0.88rem] leading-relaxed text-zinc-600 dark:text-zinc-300 space-y-4 font-sans font-light border-t border-zinc-100 dark:border-zinc-800/50 pt-6">
+                      <div className="px-6 sm:px-8 pb-8 text-[0.88rem] leading-relaxed text-zinc-800 dark:text-zinc-200 space-y-4 font-sans font-normal border-t border-zinc-200 dark:border-zinc-800/50 pt-6">
                         <p>{tip.content}</p>
                         
                         <div className="flex items-center gap-3 bg-amber-500/5 dark:bg-amber-400/5 p-4 rounded-md border border-amber-300/10">

@@ -145,7 +145,7 @@ export default function ServicesPage({ config, onNavigate }: ServicesPageProps) 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-sm md:text-base text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-2xl"
+            className="text-sm md:text-base text-zinc-800 dark:text-zinc-200 font-medium leading-relaxed max-w-2xl"
           >
             I believe that photography should be deeply felt. Our bespoke collections are tailored entirely to your requirements, crafted with premium standards, luxury leather albums, and master-retouched archives.
           </motion.p>
@@ -162,17 +162,17 @@ export default function ServicesPage({ config, onNavigate }: ServicesPageProps) 
               transition={{ delay: index * 0.15, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               className={`relative flex flex-col justify-between border p-8 md:p-10 transition-all duration-500 group rounded-2xl ${
                 config.themeMode === 'dark'
-                  ? 'bg-zinc-900/50 border-zinc-800 hover:border-amber-500/30'
-                  : 'bg-white border-zinc-100 hover:border-amber-500/30 shadow-xs'
+                  ? 'bg-zinc-900/55 border-zinc-800 hover:border-amber-500/35'
+                  : 'bg-white border-zinc-200 hover:border-amber-500/35 shadow-xs'
               }`}
             >
               <div>
                 {/* Badge decoration */}
                 <div className="flex items-center justify-between mb-8">
-                  <span className="text-[0.62rem] font-mono tracking-[0.35em] text-amber-500 font-bold uppercase">
+                  <span className="text-[0.62rem] font-mono tracking-[0.35em] text-amber-600 dark:text-amber-400 font-bold uppercase">
                     {pkg.subtitle}
                   </span>
-                  <span className="text-[0.6rem] uppercase tracking-widest font-sans font-medium px-2.5 py-1 bg-amber-500/10 text-amber-600 rounded-full">
+                  <span className="text-[0.6rem] uppercase tracking-widest font-sans font-semibold px-2.5 py-1 bg-amber-500/10 text-amber-700 dark:text-amber-400 rounded-full">
                     {pkg.badge}
                   </span>
                 </div>
@@ -182,22 +182,22 @@ export default function ServicesPage({ config, onNavigate }: ServicesPageProps) 
                 </h3>
                 <div className="flex items-baseline gap-2 mb-6 text-amber-500">
                   <span className="text-3xl font-light font-sans">{pkg.price}</span>
-                  <span className="text-xs text-zinc-400">/ local experience</span>
+                  <span className="text-xs text-zinc-950 dark:text-zinc-50 font-bold">/ local experience</span>
                 </div>
 
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-8">
+                <p className="text-xs text-zinc-950 dark:text-zinc-50 leading-relaxed font-bold mb-8">
                   {pkg.description}
                 </p>
 
                 {/* Features Divider */}
-                <div className="w-full h-[1px] bg-zinc-200/50 dark:bg-zinc-800/60 mb-8" />
+                <div className="w-full h-[1px] bg-zinc-300/60 dark:bg-zinc-800/60 mb-8" />
 
                 {/* Features List */}
                 <ul className="space-y-4 mb-10">
                   {pkg.features.map((fea, idx) => (
                     <li key={idx} className="flex items-start gap-3">
                       <Check className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                      <span className="text-xs text-zinc-600 dark:text-zinc-300 tracking-wide font-sans">
+                      <span className="text-xs text-zinc-950 dark:text-zinc-50 tracking-wide font-sans font-bold">
                         {fea}
                       </span>
                     </li>
@@ -229,13 +229,13 @@ export default function ServicesPage({ config, onNavigate }: ServicesPageProps) 
             <h2 className={`text-3xl font-light tracking-tight ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
               Build Your Heritage Collection
             </h2>
-            <p className="text-xs text-zinc-500">
+            <p className="text-xs text-zinc-950 dark:text-zinc-50 font-bold">
               Select your primary tier, customize coverage timeline, and pick tactile add-ons to real-time estimate your final investment value.
             </p>
           </div>
 
           <div className={`grid grid-cols-1 lg:grid-cols-12 gap-12 p-8 md:p-12 border rounded-3xl ${
-            config.themeMode === 'dark' ? 'bg-zinc-900/40 border-zinc-900' : 'bg-white border-zinc-100 shadow-xl'
+            config.themeMode === 'dark' ? 'bg-zinc-900/40 border-zinc-800' : 'bg-white border-zinc-200 shadow-xl'
           }`}>
             {/* Customizer Columns */}
             <div className="lg:col-span-8 space-y-10">
@@ -256,13 +256,13 @@ export default function ServicesPage({ config, onNavigate }: ServicesPageProps) 
                       className={`p-5 text-left rounded-xl border transition-all duration-300 ${
                         selectedMainTier === p.id
                           ? 'border-amber-500 bg-amber-500/5'
-                          : 'border-zinc-200 dark:border-zinc-800 hover:border-amber-500/30'
+                          : 'border-zinc-300 dark:border-zinc-800 hover:border-amber-500/30'
                       }`}
                     >
-                      <span className="text-[0.62rem] font-mono text-zinc-400 block tracking-widest uppercase mb-1">
+                      <span className="text-[0.62rem] font-mono text-zinc-950 dark:text-zinc-50 block tracking-widest uppercase mb-1 font-bold">
                         {p.subtitle.split(' ')[0]}
                       </span>
-                      <span className="text-xs font-medium text-zinc-800 dark:text-zinc-200 block mb-2 font-sans">
+                      <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100 block mb-2 font-sans">
                         {p.title}
                       </span>
                       <span className="text-amber-500 font-mono text-sm">{p.price}</span>
@@ -277,7 +277,7 @@ export default function ServicesPage({ config, onNavigate }: ServicesPageProps) 
                   <label className="text-xs font-mono tracking-widest text-amber-500 uppercase block">
                     2. COVERAGE HOURS DURATION
                   </label>
-                  <span className="text-xs font-mono text-zinc-400 bg-zinc-200/50 dark:bg-zinc-800/50 px-2.5 py-1 rounded-full">
+                  <span className="text-xs font-mono text-zinc-950 dark:text-zinc-50 bg-zinc-200/80 dark:bg-zinc-800/80 px-2.5 py-1 rounded-full font-bold">
                     {durationHours} Hours Highlighted
                   </span>
                 </div>
@@ -291,7 +291,7 @@ export default function ServicesPage({ config, onNavigate }: ServicesPageProps) 
                     onChange={(e) => setDurationHours(Number(e.target.value))}
                     className="w-full accent-amber-500 h-2 bg-zinc-200 dark:bg-zinc-800 rounded-lg cursor-pointer"
                   />
-                  <div className="flex justify-between text-[0.65rem] text-zinc-400 font-mono">
+                  <div className="flex justify-between text-[0.65rem] text-zinc-950 dark:text-zinc-50 font-mono font-bold">
                     <span>{selectedMainTier === 'monument-duo' ? '12 Hours (Base)' : '6 Hours'}</span>
                     <span>10 Hours</span>
                     <span>14 Hours</span>
@@ -315,14 +315,14 @@ export default function ServicesPage({ config, onNavigate }: ServicesPageProps) 
                         className={`p-4 rounded-xl border cursor-pointer select-none transition-all duration-300 flex justify-between items-start ${
                           isSelected
                             ? 'border-amber-500 bg-amber-500/5'
-                            : 'border-zinc-100 dark:border-zinc-800 hover:border-amber-500/30'
+                            : 'border-zinc-300 dark:border-zinc-800 hover:border-amber-500/30'
                         }`}
                       >
                         <div className="max-w-[70%]">
-                          <span className="text-xs font-medium text-zinc-900 dark:text-zinc-100 block font-sans">
+                          <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100 block font-sans">
                             {addon.name}
                           </span>
-                          <span className="text-[0.65rem] text-zinc-500 dark:text-zinc-400 line-clamp-1 block mt-0.5">
+                          <span className="text-[0.65rem] text-zinc-950 dark:text-zinc-50 line-clamp-1 block mt-0.5 font-semibold">
                             {addon.desc}
                           </span>
                         </div>
@@ -339,12 +339,12 @@ export default function ServicesPage({ config, onNavigate }: ServicesPageProps) 
             {/* Price Output Summary Card */}
             <div className="lg:col-span-4 flex flex-col justify-between">
               <div className="space-y-6">
-                <span className="text-xs font-mono tracking-widest text-zinc-400 uppercase block border-b border-zinc-100 dark:border-zinc-800 pb-2">
+                <span className="text-xs font-mono tracking-widest text-zinc-950 dark:text-zinc-50 uppercase block border-b border-zinc-200 dark:border-zinc-800 pb-2 font-bold">
                   ESTIMATE BREAKDOWN
                 </span>
 
                 <div className="space-y-3 text-xs">
-                  <div className="flex justify-between text-zinc-500">
+                  <div className="flex justify-between text-zinc-950 dark:text-zinc-50 font-bold">
                     <span>Base Tier:</span>
                     <span className="font-mono">{formatCurrency(getTierBasePrice())}</span>
                   </div>
@@ -352,7 +352,7 @@ export default function ServicesPage({ config, onNavigate }: ServicesPageProps) 
                   {/* Hours upgrade calculation */}
                   {((selectedMainTier === 'monument-duo' && durationHours > 12) || 
                     (selectedMainTier !== 'monument-duo' && durationHours > 9)) && (
-                    <div className="flex justify-between text-zinc-500">
+                    <div className="flex justify-between text-zinc-950 dark:text-zinc-50 font-bold">
                       <span>Add\'l Hours ({durationHours - (selectedMainTier === 'monument-duo' ? 12 : 9)}hr):</span>
                       <span className="font-mono">
                         {formatCurrency((durationHours - (selectedMainTier === 'monument-duo' ? 12 : 9)) * 450)}
@@ -365,7 +365,7 @@ export default function ServicesPage({ config, onNavigate }: ServicesPageProps) 
                     const found = alacarte.find(item => item.name === name);
                     if (!found) return null;
                     return (
-                      <div key={name} className="flex justify-between text-zinc-400 pl-2 border-l border-amber-500/30">
+                      <div key={name} className="flex justify-between text-zinc-950 dark:text-zinc-50 pl-2 border-l border-amber-500/30 font-bold">
                         <span className="truncate max-w-[150px]">{name}:</span>
                         <span className="font-mono">{found.price}</span>
                       </div>
@@ -373,8 +373,8 @@ export default function ServicesPage({ config, onNavigate }: ServicesPageProps) 
                   })}
                 </div>
 
-                <div className="border-t border-zinc-100 dark:border-zinc-800 pt-6">
-                  <span className="text-[0.62rem] font-mono tracking-wider text-zinc-400 uppercase block mb-1">
+                <div className="border-t border-zinc-200 dark:border-zinc-800 pt-6">
+                  <span className="text-[0.62rem] font-mono tracking-wider text-zinc-950 dark:text-zinc-50 uppercase block mb-1 font-bold">
                     TOTAL INVESTMENT ESTIMATE
                   </span>
                   <div className="text-4xl font-light text-amber-500 tracking-tight font-sans">
@@ -387,12 +387,12 @@ export default function ServicesPage({ config, onNavigate }: ServicesPageProps) 
                 <button
                   id="estimator-submit-btn"
                   onClick={() => onNavigate('contact')}
-                  className="w-full py-4 text-center cursor-pointer bg-amber-500 hover:bg-amber-600 text-zinc-950 font-sans font-medium text-xs tracking-[0.25em] uppercase rounded-xl transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                  className="w-full py-4 text-center cursor-pointer bg-amber-500 hover:bg-amber-600 text-zinc-950 font-sans font-bold text-xs tracking-[0.25em] uppercase rounded-xl transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2"
                 >
                   SECURE THIS PROPOSAL
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
-                <span className="text-[0.58rem] font-mono text-zinc-400 block text-center uppercase tracking-widest leading-relaxed">
+                <span className="text-[0.58rem] font-mono text-zinc-950 dark:text-zinc-50 block text-center uppercase tracking-widest leading-relaxed font-bold">
                   Prices exclude applicable local sales taxes. Final quote generated upon formal contract signing.
                 </span>
               </div>
@@ -409,12 +409,12 @@ export default function ServicesPage({ config, onNavigate }: ServicesPageProps) 
             {alacarte.map((item, idx) => (
               <div key={idx} className="space-y-2">
                 <div className="flex justify-between items-baseline">
-                  <h4 className="text-sm font-medium text-zinc-800 dark:text-zinc-200 font-sans">
+                  <h4 className="text-sm font-bold text-zinc-950 dark:text-zinc-50 font-sans">
                     {item.name}
                   </h4>
-                  <span className="text-xs font-mono text-amber-500 font-semibold shrink-0 pl-4">{item.price}</span>
+                  <span className="text-xs font-mono text-amber-500 font-bold shrink-0 pl-4">{item.price}</span>
                 </div>
-                <p className="text-xs text-zinc-400 max-w-sm leading-relaxed">
+                <p className="text-xs text-zinc-950 dark:text-zinc-50 font-bold max-w-sm leading-relaxed">
                   {item.desc}
                 </p>
               </div>

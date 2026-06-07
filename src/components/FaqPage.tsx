@@ -107,7 +107,7 @@ export default function FaqPage({ config, onNavigate }: FaqPageProps) {
               }`}>
                 Answering your <span className="italic font-serif text-amber-500">questions</span>.
               </h1>
-              <p className="text-xs text-zinc-500 uppercase tracking-widest max-w-xl leading-relaxed">
+              <p className="text-xs text-zinc-800 dark:text-zinc-200 uppercase tracking-widest max-w-xl leading-relaxed font-semibold">
                 Transparency is a core foundation of our boutique studio. Read through detail procedures to coordinate seamless photography sessions.
               </p>
             </div>
@@ -183,7 +183,7 @@ export default function FaqPage({ config, onNavigate }: FaqPageProps) {
                           transition={{ duration: 0.35, ease: 'easeInOut' }}
                           className="overflow-hidden"
                         >
-                          <p className="px-6 pb-6 text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-sans max-w-3xl">
+                          <p className="px-6 pb-6 text-xs text-zinc-805 dark:text-zinc-200 leading-relaxed font-sans font-medium max-w-3xl">
                             {faq.answer}
                           </p>
                         </motion.div>
@@ -207,7 +207,7 @@ export default function FaqPage({ config, onNavigate }: FaqPageProps) {
                 <h3 className={`text-lg font-light tracking-tight ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
                   Still have unanswered questions?
                 </h3>
-                <p className="text-xs text-zinc-400 leading-relaxed">
+                <p className="text-xs text-zinc-800 dark:text-zinc-200 leading-relaxed font-medium">
                   Write directly to our studio desk. Our administrative team will reach back with tailored replies within 12 hours.
                 </p>
               </div>
