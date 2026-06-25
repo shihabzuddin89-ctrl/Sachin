@@ -131,37 +131,15 @@ export default function JournalPage({ config }: JournalPageProps) {
               exit={{ opacity: 0 }}
               className="space-y-16"
             >
-              {/* Header Divider Line */}
-              <div className="flex items-center gap-4 mb-20">
-                <span className="text-[0.62rem] font-mono tracking-[0.45em] text-amber-500 font-bold shrink-0">
-                  03 // THE JOURNAL & ARCHIVES
-                </span>
-                <div className="h-[1px] w-full bg-linear-to-r from-amber-500/30 to-transparent" />
-              </div>
-
-              {/* Title & Filter Bar block */}
-              <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-8 border-b border-zinc-200/50 dark:border-zinc-800/60">
-                <div className="space-y-3">
-                  <h1 className={`text-4xl md:text-5xl font-light tracking-tight ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
-                    Stories beautifully <span className="italic font-serif text-amber-500">recorded</span>.
+              {/* Title Block */}
+              <div className="pb-8 border-b border-white/10">
+                <div className="space-y-3 max-w-3xl">
+                  <h1 className={`text-4xl md:text-5xl font-light tracking-tight text-white ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
+                    Stories beautifully <span className="italic font-serif text-[#E5C158]">recorded</span>.
                   </h1>
-                  <p className="text-xs text-zinc-400 uppercase tracking-widest">
+                  <p className="text-xs text-zinc-300 uppercase tracking-widest font-sans">
                     A behind-the-scenes anthology of fine-art celebrations, travel notes, and light study.
                   </p>
-                </div>
-
-                {/* Styled Search box */}
-                <div className="relative w-full md:w-80">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400">
-                    <Search className="w-4 h-4" />
-                  </span>
-                  <input
-                    type="text"
-                    placeholder="Search archives..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3 text-xs tracking-wider rounded-xl border border-zinc-200 dark:border-zinc-800 bg-transparent focus:outline-hidden focus:border-amber-500/50 transition-all font-sans"
-                  />
                 </div>
               </div>
 
@@ -173,8 +151,8 @@ export default function JournalPage({ config }: JournalPageProps) {
                     onClick={() => setActiveCategory(cat)}
                     className={`px-5 py-2.5 rounded-full text-[0.65rem] tracking-[0.25em] font-sans font-medium uppercase border transition-all duration-300 cursor-pointer ${
                       activeCategory === cat
-                        ? 'bg-amber-500 text-zinc-950 border-amber-500'
-                        : 'border-zinc-200 dark:border-zinc-800 hover:border-amber-500/30 text-zinc-500 dark:text-zinc-300'
+                        ? 'bg-[#E5C158] text-[#0A1931] border-[#E5C158]'
+                        : 'border-white/10 hover:border-[#E5C158]/40 text-zinc-300'
                     }`}
                   >
                     {cat}
@@ -234,11 +212,11 @@ export default function JournalPage({ config }: JournalPageProps) {
                           {post.title}
                         </h2>
 
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed line-clamp-2 pr-6">
+                        <p className="text-xs text-zinc-300 leading-relaxed line-clamp-2 pr-6">
                           {post.excerpt}
                         </p>
 
-                        <div className="flex items-center justify-between pt-4 border-t border-zinc-100 dark:border-zinc-900">
+                        <div className="flex items-center justify-between pt-4 border-t border-white/10">
                           <span className="text-[0.62rem] font-mono text-amber-500 tracking-[0.3em] uppercase inline-flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
                             READ THE JOURNAL
                             <CornerDownRight className="w-3 h-3" />
@@ -320,7 +298,7 @@ export default function JournalPage({ config }: JournalPageProps) {
               </div>
 
               {/* Article Paragraph content block */}
-              <div className="prose prose-zinc dark:prose-invert max-w-none text-zinc-700 dark:text-zinc-300 space-y-8 leading-relaxed tracking-wide text-sm font-light">
+              <div className="prose prose-zinc dark:prose-invert max-w-none text-zinc-200 space-y-8 leading-relaxed tracking-wide text-sm font-light">
                 {selectedPost.paragraphs.map((p, index) => (
                   <p key={index} className="first-letter:text-4xl first-letter:font-serif first-letter:text-amber-500 first-letter:mr-1 first-letter:float-left first-letter:font-bold">
                     {index === 0 ? p : p}

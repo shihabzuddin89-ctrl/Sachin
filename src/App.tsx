@@ -83,16 +83,10 @@ export default function App() {
   };
 
   // Typography Class compilation
-  const fontPresetClassName = 'font-sans antialiased text-zinc-900 dark:text-zinc-50 leading-relaxed font-normal';
+  const fontPresetClassName = 'font-sans antialiased text-zinc-100 leading-relaxed font-normal';
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 selection:bg-amber-300 selection:text-zinc-950 pb-12 ${fontPresetClassName} ${
-      config.themeMode === 'cream' 
-        ? 'bg-[#FAF6F0]' 
-        : config.themeMode === 'dark' 
-        ? 'bg-zinc-950 text-white dark' 
-        : 'bg-white'
-    }`}>
+    <div className={`min-h-screen transition-colors duration-500 selection:bg-[#E5C158] selection:text-[#060709] pb-12 ${fontPresetClassName} bg-[#060709] text-white`}>
       {/* 1. Header Navigation block */}
       <Header 
         config={config} 

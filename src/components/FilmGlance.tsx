@@ -56,13 +56,7 @@ export default function FilmGlance({ config, onNavigate }: FilmGlanceProps) {
   return (
     <section 
       id="film-glance-section"
-      className={`py-24 md:py-32 px-6 md:px-12 transition-colors duration-500 overflow-hidden relative ${
-        config.themeMode === 'cream'
-          ? 'bg-[#FAF6F0] text-zinc-900 border-t border-zinc-200'
-          : isDarkMode
-          ? 'bg-zinc-950 text-white border-t border-zinc-900'
-          : 'bg-zinc-50 text-zinc-900 border-t border-zinc-100'
-      }`}
+      className="py-24 md:py-32 px-6 md:px-12 transition-colors duration-500 overflow-hidden relative bg-[#0E0F12] text-white"
     >
       {/* Editorial Watermark background text */}
       <div className="absolute right-0 top-1/4 translate-x-20 rotate-90 origin-right text-[10rem] sm:text-[14rem] md:text-[18rem] font-serif tracking-tighter text-zinc-500/[0.03] select-none pointer-events-none font-light uppercase">
@@ -73,11 +67,11 @@ export default function FilmGlance({ config, onNavigate }: FilmGlanceProps) {
         
         {/* Central Monumental Signature Title */}
         <div className="text-center mb-24 space-y-4">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-sans tracking-tight leading-none text-black dark:text-black uppercase mt-4">
-            MY SIGNATURE WORK
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-sans tracking-tight leading-none text-white uppercase mt-4">
+            MY SIGNATURE <span className="text-[#E5C158]">WORK</span>
           </h2>
           
-          <p className="max-w-xl mx-auto text-xs sm:text-[0.82rem] leading-relaxed text-zinc-500 dark:text-zinc-600 font-sans tracking-wide pt-4">
+          <p className="max-w-xl mx-auto text-xs sm:text-[0.82rem] leading-relaxed text-zinc-200 font-sans tracking-wide pt-4">
             A hand-picked selection of three premium wedding stories, capturing the timeless love story of each couple. Every frame represents absolute refinement, pure aesthetics, and unscripted bliss.
           </p>
         </div>

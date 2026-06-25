@@ -24,39 +24,25 @@ export default function FilmsSection({ config, films }: FilmsSectionProps) {
   return (
     <section
       id="films"
-      className={`py-24 md:py-32 px-6 md:px-12 transition-colors duration-500 overflow-hidden ${
-        config.themeMode === 'cream'
-          ? 'bg-[#FAF6F0] text-zinc-900 border-y border-zinc-200/50'
-          : isDarkMode
-          ? 'bg-zinc-950 text-white border-b border-zinc-900'
-          : 'bg-zinc-50 text-zinc-900 border-y border-zinc-100'
-      }`}
+      className="py-24 md:py-32 px-6 md:px-12 transition-colors duration-500 overflow-hidden bg-[#060709] text-white"
     >
       <div className="max-w-7xl mx-auto">
-        {/* Section Header Divider Line */}
-        <div className="flex items-center gap-4 mb-20">
-          <span className="text-[0.62rem] font-mono tracking-[0.45em] text-amber-500 font-bold shrink-0">
-            03 // CINEMATOGRAPHY
-          </span>
-          <div className="h-[1px] w-full bg-linear-to-r from-amber-500/30 to-transparent" />
-        </div>
-
         {/* Header Description */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div className="space-y-4">
-            <span className="text-amber-500 text-[0.62rem] md:text-[0.7rem] tracking-[0.45em] uppercase font-sans font-semibold block">
+            <span className="text-[#E5C158] text-[0.62rem] md:text-[0.7rem] tracking-[0.45em] uppercase font-sans font-semibold block">
               CINEMATOGRAPHIC WORKS
             </span>
-            <h2 className="text-[2rem] sm:text-[3rem] font-light font-serif tracking-tight text-zinc-900 dark:text-zinc-50 leading-none">
+            <h2 className="text-[2rem] sm:text-[3rem] font-light font-serif tracking-tight text-white leading-none">
               Wedding{' '}
-              <span className="font-serif italic text-amber-600 font-medium">
+              <span className="font-serif italic text-[#E5C158] font-medium">
                 Films & Cinema
               </span>
             </h2>
-            <div className="w-16 h-[1.5px] bg-amber-400/80 mr-auto" />
+            <div className="w-16 h-[1.5px] bg-[#E5C158] mr-auto" />
           </div>
 
-          <p className="max-w-md text-[0.88rem] leading-relaxed text-zinc-800 dark:text-zinc-200 font-sans font-normal">
+          <p className="max-w-md text-[0.88rem] leading-relaxed text-zinc-200 font-sans font-normal">
             Motion captures the fleeting dialogue, the gasps of breath, and the warm laughter in sequences that feel like high-fashion documentary archives.
           </p>
         </div>
@@ -87,11 +73,11 @@ export default function FilmsSection({ config, films }: FilmsSectionProps) {
 
               {/* Top Film Categories */}
               <div className="absolute top-6 left-6 z-20 flex items-center justify-between w-[calc(100%-48px)]">
-                <span className="text-[0.58rem] font-mono tracking-[0.3em] text-amber-300 uppercase bg-black/50 border border-white/10 px-2.5 py-1 rounded-full">
+                <span className="text-[0.58rem] font-mono tracking-[0.3em] text-[#E5C158] uppercase bg-black/50 border border-white/10 px-2.5 py-1 rounded-full">
                   {film.category}
                 </span>
                 <span className="text-[0.62rem] text-zinc-300 font-mono tracking-widest flex items-center gap-1">
-                  <Watch className="w-3 h-3 text-amber-400" />
+                  <Watch className="w-3 h-3 text-[#E5C158]" />
                   04:12 MIN
                 </span>
               </div>
@@ -101,7 +87,7 @@ export default function FilmsSection({ config, films }: FilmsSectionProps) {
                 <button
                   id={`play-button-${film.id}`}
                   onClick={() => handleOpenVideo(film.videoUrl)}
-                  className="cursor-pointer w-16 h-16 rounded-full bg-amber-400 text-zinc-950 flex items-center justify-center hover:scale-110 shadow-lg transform transition-all duration-300 group-hover:bg-white group-hover:text-amber-500"
+                  className="cursor-pointer w-16 h-16 rounded-full bg-[#E5C158] text-zinc-950 flex items-center justify-center hover:scale-110 shadow-lg transform transition-all duration-300 group-hover:bg-white group-hover:text-[#E5C158]"
                   aria-label={`Play film ${film.title}`}
                 >
                   <Play className="w-6 h-6 fill-current pl-1" />
@@ -111,10 +97,10 @@ export default function FilmsSection({ config, films }: FilmsSectionProps) {
               {/* Bottom description elements */}
               <div className="absolute bottom-6 left-6 right-6 z-20 space-y-2 text-white">
                 <div className="flex items-center gap-1.5 text-zinc-300 text-[0.65rem] font-mono tracking-widest uppercase mb-1">
-                  <MapPin className="w-3.5 h-3.5 text-amber-300" />
+                  <MapPin className="w-3.5 h-3.5 text-[#E5C158]" />
                   {film.location}
                 </div>
-                <h3 className="text-[1.25rem] font-serif font-light leading-snug group-hover:text-amber-300 transition-colors duration-300">
+                <h3 className="text-[1.25rem] font-serif font-light leading-snug group-hover:text-[#E5C158] transition-colors duration-300">
                   {film.title}
                 </h3>
                 <p className="text-[0.72rem] font-sans tracking-[0.15em] text-zinc-200 font-semibold uppercase">

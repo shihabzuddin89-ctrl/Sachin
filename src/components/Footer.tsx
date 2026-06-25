@@ -29,13 +29,7 @@ export default function Footer({ config, onNavigate }: FooterProps) {
 
   return (
     <footer
-      className={`pt-20 pb-12 px-6 md:px-12 border-t transition-colors duration-500 w-full ${
-        config.themeMode === 'cream'
-          ? 'bg-[#FAF6F0] text-zinc-900 border-zinc-200/50'
-          : isDarkMode
-          ? 'bg-zinc-950 text-white border-zinc-900'
-          : 'bg-white text-zinc-900 border-zinc-100'
-      }`}
+      className="pt-20 pb-12 px-6 md:px-12 border-t border-white/5 transition-colors duration-500 w-full bg-[#0E0F12] text-white"
     >
       <div className="max-w-7xl mx-auto">
         {/* Main Footer Row */}
@@ -47,13 +41,13 @@ export default function Footer({ config, onNavigate }: FooterProps) {
             <div className="flex flex-col items-start space-y-2">
               <div className="flex items-baseline relative">
                 {/* Visual "SG" logo built with beautiful serif typography like PR */}
-                <span className="text-6xl md:text-7xl font-light tracking-tighter leading-none font-serif text-black dark:text-white select-none">
-                  S<span className="italic text-amber-500 font-normal">G</span>
+                <span className="text-6xl md:text-7xl font-light tracking-tighter leading-none font-serif text-white select-none">
+                  S<span className="italic text-[#E5C158] font-normal">G</span>
                 </span>
-                <span className="text-amber-500 text-[10px] absolute -bottom-1 right-2 animate-pulse">&bull;</span>
+                <span className="text-[#E5C158] text-[10px] absolute -bottom-1 right-2 animate-pulse">&bull;</span>
               </div>
               <div className="pt-2">
-                <span className="block text-xs sm:text-[0.72rem] font-bold tracking-[0.4em] text-zinc-900 dark:text-zinc-100 uppercase font-sans">
+                <span className="block text-xs sm:text-[0.72rem] font-bold tracking-[0.4em] text-white uppercase font-sans">
                   SOURAV GUPTA
                 </span>
                 <span className="block text-[0.55rem] font-mono tracking-[0.45em] text-zinc-400 dark:text-zinc-500 uppercase mt-0.5">
@@ -77,7 +71,7 @@ export default function Footer({ config, onNavigate }: FooterProps) {
               <span className="block font-serif italic text-zinc-400 dark:text-zinc-500 text-[1.05rem] sm:text-lg leading-none lowercase tracking-wide">
                 find your way
               </span>
-              <span className="block font-sans font-light tracking-[0.22em] text-sm text-zinc-900 dark:text-zinc-100 uppercase">
+              <span className="block font-sans font-light tracking-[0.22em] text-sm text-white uppercase">
                 AROUND
               </span>
             </div>
@@ -87,7 +81,7 @@ export default function Footer({ config, onNavigate }: FooterProps) {
                 <li key={link.id}>
                   <button
                     onClick={() => onNavigate(link.id)}
-                    className="cursor-pointer text-[0.62rem] sm:text-[0.68rem] font-semibold tracking-[0.3em] uppercase text-zinc-500 dark:text-zinc-400 hover:text-amber-500 hover:tracking-[0.35em] transition-all duration-300 block"
+                    className="cursor-pointer text-[0.62rem] sm:text-[0.68rem] font-semibold tracking-[0.3em] uppercase text-zinc-400 hover:text-[#E5C158] hover:tracking-[0.35em] transition-all duration-300 block"
                   >
                     {link.label}
                   </button>
@@ -102,7 +96,7 @@ export default function Footer({ config, onNavigate }: FooterProps) {
               <span className="block font-serif italic text-zinc-400 dark:text-zinc-500 text-[1.05rem] sm:text-lg leading-none lowercase tracking-wide">
                 find us
               </span>
-              <span className="block font-sans font-light tracking-[0.22em] text-sm text-zinc-900 dark:text-zinc-100 uppercase">
+              <span className="block font-sans font-light tracking-[0.22em] text-sm text-white uppercase">
                 ELSEWHERE
               </span>
             </div>

@@ -51,23 +51,17 @@ export default function ContactSection({ config }: ContactSectionProps) {
       
       {/* 1. TOP PORTION: Toronto Wedding Photographer Serving Ontario & Worldwide */}
       <div 
-        className={`py-24 md:py-32 px-6 md:px-12 text-center transition-colors duration-500 border-t ${
-          config.themeMode === 'cream'
-            ? 'bg-[#FAF6F0] text-zinc-900 border-zinc-200/50'
-            : isDarkMode
-            ? 'bg-zinc-950 text-white border-zinc-900'
-            : 'bg-zinc-50/50 text-zinc-900 border-zinc-100'
-        }`}
+        className="py-24 md:py-32 px-6 md:px-12 text-center transition-colors duration-500 border-t border-white/5 bg-[#0E0F12] text-white"
       >
         <div className="max-w-4xl mx-auto space-y-8">
-          <h2 className="text-3xl sm:text-4.5xl md:text-5.5xl lg:text-6.5xl font-extralight tracking-tight text-zinc-900 dark:text-zinc-50 leading-tight uppercase font-serif">
+          <h2 className="text-3xl sm:text-4.5xl md:text-5.5xl lg:text-6.5xl font-extralight tracking-tight text-white leading-tight uppercase font-serif">
             TORONTO WEDDING <br className="hidden sm:inline" />
             PHOTOGRAPHER SERVING <br />
-            <span className="font-serif italic font-normal text-amber-500">ONTARIO & WORLDWIDE</span>
+            <span className="font-serif italic font-normal text-[#E5C158]">ONTARIO & WORLDWIDE</span>
           </h2>
           
-          <p className="max-w-3xl mx-auto text-xs sm:text-[0.88rem] leading-relaxed text-zinc-500 dark:text-zinc-400 font-sans tracking-wide">
-            As a <strong className="font-semibold text-zinc-800 dark:text-zinc-300">Toronto wedding photographer</strong>, my work blends editorial direction with documentary storytelling. I photograph weddings across Toronto and throughout Ontario, including Oakville, Mississauga, Hamilton, Burlington, Caledon, Niagara, Barrie, Markham, Vaughan, and Muskoka, while also capturing destination weddings worldwide. My goal is to create timeless images that feel natural, emotional, and beautifully composed.
+          <p className="max-w-3xl mx-auto text-xs sm:text-[0.88rem] leading-relaxed text-zinc-200 font-sans tracking-wide">
+            As a <strong className="font-semibold text-white">Toronto wedding photographer</strong>, my work blends editorial direction with documentary storytelling. I photograph weddings across Toronto and throughout Ontario, including Oakville, Mississauga, Hamilton, Burlington, Caledon, Niagara, Barrie, Markham, Vaughan, and Muskoka, while also capturing destination weddings worldwide. My goal is to create timeless images that feel natural, emotional, and beautifully composed.
           </p>
         </div>
       </div>

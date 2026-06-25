@@ -19,13 +19,7 @@ export default function DoublePhotoSplit({ config, photos }: DoublePhotoSplitPro
   return (
     <section 
       id="photo-film-split-hero"
-      className={`relative w-full h-[calc(100vh-52px)] lg:h-[calc(100vh-68px)] min-h-[480px] overflow-hidden mt-[52px] lg:mt-[68px] flex flex-col justify-stretch transition-colors duration-500 ${
-        config.themeMode === 'cream' 
-          ? 'bg-[#FAF6F0]' 
-          : isDarkMode 
-          ? 'bg-zinc-950' 
-          : 'bg-white'
-      }`}
+      className="relative w-full h-screen min-h-[480px] overflow-hidden mt-0 flex flex-col justify-stretch transition-colors duration-500 bg-[#060709]"
     >
       {/* Grid containing two dynamic full-height pictures with zero gap, edge-to-edge */}
       <div className="grid grid-cols-2 gap-0 w-full h-full relative overflow-hidden shadow-sm">

@@ -81,13 +81,7 @@ export default function AboutSection({ config, onNavigate }: AboutSectionProps) 
   return (
     <section
       id="about"
-      className={`pt-24 pb-0 md:pt-32 md:pb-0 px-6 md:px-12 transition-colors duration-500 overflow-hidden ${
-        config.themeMode === 'cream'
-          ? 'bg-[#FAF6F0] text-zinc-900'
-          : isDarkMode
-          ? 'bg-zinc-950 text-white border-y border-zinc-900'
-          : 'bg-white text-zinc-900'
-      }`}
+      className="pt-24 pb-0 md:pt-32 md:pb-0 px-6 md:px-12 transition-colors duration-500 overflow-hidden bg-[#060709] text-white"
     >
       <div className="max-w-7xl mx-auto">
         {/* Dynamic Explore Navigation with 4 options */}
@@ -99,7 +93,7 @@ export default function AboutSection({ config, onNavigate }: AboutSectionProps) 
             transition={{ duration: 1 }}
             className="flex flex-col items-center"
           >
-            <h2 className="text-3xl md:text-5xl font-light tracking-[0.4em] uppercase font-serif mb-16 text-zinc-900 dark:text-zinc-50">
+            <h2 className="text-3xl md:text-5xl font-light tracking-[0.4em] uppercase font-serif mb-16 text-white">
               EXPLORE
             </h2>
             

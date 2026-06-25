@@ -52,65 +52,30 @@ export default function PortfolioPage({ config, photos, onSelectPhoto }: Portfol
   return (
     <div className="pt-28 pb-20 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
-        {/* Header Section divider */}
-        <div className="flex items-center gap-4 mb-20">
-          <span className="text-[0.62rem] font-mono tracking-[0.45em] text-amber-500 font-bold shrink-0">
-            01 // PORTFOLIO ARCHIVES
-          </span>
-          <div className="h-[1px] w-full bg-linear-to-r from-amber-500/30 to-transparent" />
-        </div>
-
         {/* Title details */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+        <div className="mb-16">
           <div className="space-y-4 max-w-2xl">
-            <h1 className={`text-4xl md:text-6xl font-light tracking-tight ${
+            <h1 className={`text-4xl md:text-6xl font-light tracking-tight text-white ${
               config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'
             }`}>
-              Our signature <span className="italic font-serif text-amber-500">imagery</span>.
+              Our signature <span className="italic font-serif text-[#E5C158]">imagery</span>.
             </h1>
-            <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-sans">
+            <p className="text-xs md:text-sm text-zinc-300 leading-relaxed font-sans">
               Curated frames highlighting authentic laughter, quiet gazes, and the timeless textures of luxury celebrations. Filter our archives to view specific moments.
-            </p>
-          </div>
-
-          {/* Interactive Styling balance slider representation */}
-          <div className={`p-6 border rounded-2xl ${
-            config.themeMode === 'dark' ? 'bg-zinc-900/40 border-zinc-800' : 'bg-white border-zinc-200 shadow-xs'
-          } w-full md:w-80 space-y-3`}>
-            <div className="flex justify-between items-center text-[0.6rem] font-mono tracking-widest text-zinc-400">
-              <span className={styleBalance < 45 ? 'text-amber-500 font-bold' : ''}>RAW CANDID</span>
-              <span className={styleBalance > 55 ? 'text-amber-500 font-bold' : ''}>ART DIRECTED</span>
-            </div>
-            
-            <input
-              type="range"
-              min={10}
-              max={90}
-              value={styleBalance}
-              onChange={(e) => setStyleBalance(Number(e.target.value))}
-              className="w-full accent-amber-500 cursor-pointer h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg"
-            />
-            
-            <p className="text-[0.58rem] text-zinc-500 text-center font-sans tracking-wide leading-relaxed">
-              {styleBalance < 40 
-                ? 'Highlighting uncontrived documentary journalism in low-light environments.' 
-                : styleBalance > 60 
-                ? 'Curated magazine-tier fashion editorial and bespoke posture posing.' 
-                : 'The optimal union: 50% true documentary frames + 50% polished editorial direction.'}
             </p>
           </div>
         </div>
 
         {/* Category Filters Bar */}
-        <div className="flex flex-wrap gap-2 md:gap-4 mb-16 border-b border-zinc-100 dark:border-zinc-800 pb-8">
+        <div className="flex flex-wrap gap-2 md:gap-4 mb-16 border-b border-white/10 pb-8">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
               className={`px-5 py-3 rounded-xl text-[0.62rem] tracking-[0.25em] font-sans font-medium uppercase border transition-all duration-300 cursor-pointer ${
                 activeCategory === cat.id
-                  ? 'bg-zinc-900 border-zinc-900 text-white dark:bg-zinc-800 dark:border-zinc-800'
-                  : 'border-zinc-200 dark:border-zinc-800 hover:border-amber-500/30 text-zinc-500'
+                  ? 'bg-[#E5C158] border-[#E5C158] text-[#060709]'
+                  : 'border-white/10 hover:border-[#E5C158]/30 text-zinc-300'
               }`}
             >
               {cat.label}
@@ -158,7 +123,7 @@ export default function PortfolioPage({ config, photos, onSelectPhoto }: Portfol
                   <div className="absolute inset-x-0 bottom-0 p-6 z-10 translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-[600ms] ease-out space-y-3">
                     <div className="flex justify-between items-center text-white">
                       <div>
-                        <span className="text-[0.6rem] font-mono tracking-widest text-amber-500 block uppercase">
+                        <span className="text-[0.6rem] font-mono tracking-widest text-[#E5C158] block uppercase">
                           {photo.location.toUpperCase()}
                         </span>
                         <h4 className={`text-base font-medium tracking-tight ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
@@ -170,9 +135,9 @@ export default function PortfolioPage({ config, photos, onSelectPhoto }: Portfol
                       <button
                         id={`photo-like-idx-${photo.id}`}
                         onClick={(e) => handleToggleLike(photo.id, e)}
-                        className="p-2 border border-white/20 hover:border-amber-500 rounded-full transition-colors flex items-center justify-center bg-zinc-950/40 hover:bg-rose-500/10 text-white group"
+                        className="p-2 border border-white/20 hover:border-[#E5C158] rounded-full transition-colors flex items-center justify-center bg-zinc-950/40 hover:bg-rose-500/10 text-white group"
                       >
-                        <Heart className={`w-3.5 h-3.5 ${isFav ? 'fill-rose-500 text-rose-500' : 'text-zinc-200 group-hover:text-amber-400'}`} />
+                        <Heart className={`w-3.5 h-3.5 ${isFav ? 'fill-rose-500 text-rose-500' : 'text-zinc-200 group-hover:text-[#E5C158]'}`} />
                       </button>
                     </div>
 
@@ -200,22 +165,22 @@ export default function PortfolioPage({ config, photos, onSelectPhoto }: Portfol
         </motion.div>
 
         {/* Elegant CTA to contact form in case they browse portfolio and get inspired */}
-        <div className="text-center mt-28 border-t border-zinc-100 dark:border-zinc-800 pt-20">
-          <p className="text-[0.62rem] font-mono tracking-[0.4em] text-amber-500 uppercase mb-4">
+        <div className="text-center mt-28 border-t border-white/10 pt-20">
+          <p className="text-[0.62rem] font-mono tracking-[0.45em] text-[#E5C158] uppercase mb-4">
             FEEL AN EMBRACE IN THE LIGHT?
           </p>
-          <h3 className={`text-2xl md:text-3xl font-light mb-8 max-w-lg mx-auto leading-tight ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
-            Let\'s capture your celebration in luxurious, cinematic fidelity.
+          <h3 className={`text-2xl md:text-3xl font-light mb-8 max-w-lg mx-auto leading-tight text-white ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
+            Let's capture your celebration in luxurious, cinematic fidelity.
           </h3>
           <button
             id="portfolio-cta-contact"
             onClick={() => {
-              const inquiryEl = document.getElementById('inquire-section');
+              const inquiryEl = document.getElementById('contact');
               if (inquiryEl) {
                 inquiryEl.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="px-8 py-4 cursor-pointer bg-zinc-900 hover:bg-black dark:bg-zinc-800 dark:hover:bg-zinc-700 text-white text-xs font-semibold tracking-widest uppercase rounded-xl transition-all hover:scale-101 hover:shadow-lg"
+            className="px-8 py-4 cursor-pointer bg-[#E5C158] hover:bg-[#F3D17E] text-[#060709] text-xs font-semibold tracking-widest uppercase rounded-xl transition-all hover:scale-101 hover:shadow-lg"
           >
             COMMISSION US TODAY
           </button>

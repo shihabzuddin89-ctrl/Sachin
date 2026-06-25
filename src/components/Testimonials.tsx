@@ -12,13 +12,7 @@ export default function Testimonials({ config }: TestimonialsProps) {
   return (
     <section
       id="reviews"
-      className={`py-24 md:py-32 px-6 md:px-12 transition-colors duration-500 overflow-hidden relative ${
-        config.themeMode === 'cream'
-          ? 'bg-[#FAF6F0] text-zinc-900 border-b border-zinc-200/50'
-          : isDarkMode
-          ? 'bg-zinc-950 text-white'
-          : 'bg-zinc-50 text-zinc-900 border-b border-zinc-100'
-      }`}
+      className="py-24 md:py-32 px-6 md:px-12 transition-colors duration-500 overflow-hidden relative bg-[#0E0F12] text-white"
     >
       {/* Editorial aesthetic watermark backdrop */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 text-[12rem] sm:text-[16rem] font-serif tracking-tighter text-zinc-500/[0.02] select-none pointer-events-none font-light uppercase">
@@ -85,12 +79,12 @@ export default function Testimonials({ config }: TestimonialsProps) {
                 PRINCIPAL DIRECTOR & PHOTOGRAPHER
               </span>
               
-              <h2 className="text-5xl sm:text-6xl md:text-7xl font-serif font-light tracking-tight text-zinc-900 dark:text-zinc-50 leading-tight">
-                Hi, I'm <span className="font-serif italic font-normal text-amber-500 block sm:inline">Sourav Gupta</span>
+              <h2 className="text-5xl sm:text-6xl md:text-7xl font-serif font-light tracking-tight text-white leading-tight">
+                Hi, I'm <span className="font-serif italic font-normal text-[#E5C158] block sm:inline">Sourav Gupta</span>
               </h2>
             </div>
 
-            <div className="space-y-8 text-zinc-600 dark:text-zinc-350 font-sans tracking-wide leading-relaxed text-base md:text-lg">
+            <div className="space-y-8 text-zinc-200 font-sans tracking-wide leading-relaxed text-base md:text-lg">
               <p>
                 I look at weddings not as simple, routine events to be documented, but as living, breathing cinematic poems of high-contrast emotion, light, and timeless beauty. 
               </p>

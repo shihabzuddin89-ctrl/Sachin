@@ -20,13 +20,7 @@ export default function TipsSection({ config, tips }: TipsSectionProps) {
   return (
     <section
       id="tips"
-      className={`py-24 md:py-32 px-6 md:px-12 transition-colors duration-500 ${
-        config.themeMode === 'cream'
-          ? 'bg-[#FAF6F0] text-zinc-900 border-b border-zinc-200/50'
-          : isDarkMode
-          ? 'bg-[#0a0a0a] text-white border-b border-zinc-900'
-          : 'bg-white text-zinc-900 border-b border-zinc-100'
-      }`}
+      className="py-24 md:py-32 px-6 md:px-12 transition-colors duration-500 bg-[#060709] text-white"
     >
       <div className="max-w-4xl mx-auto">
         {/* Section Header Divider Line */}
@@ -42,14 +36,14 @@ export default function TipsSection({ config, tips }: TipsSectionProps) {
           <span className="text-amber-500 text-[0.62rem] md:text-[0.7rem] tracking-[0.45em] uppercase font-sans font-semibold block">
             BRIDAL WISDOM & DIALOGUE
           </span>
-          <h2 className="text-[2rem] sm:text-[3rem] font-light font-serif tracking-tight text-zinc-900 dark:text-zinc-50 leading-tight">
+          <h2 className="text-[2rem] sm:text-[3rem] font-light font-serif tracking-tight text-white leading-tight">
             Advice for a{' '}
-            <span className="font-serif italic text-amber-600 font-medium">
+            <span className="font-serif italic text-[#E5C158] font-medium">
               Perfect Wedding
             </span>
           </h2>
-          <div className="w-12 h-[1px] bg-zinc-300 dark:bg-zinc-700 mx-auto" />
-          <p className="text-[0.85rem] uppercase tracking-widest text-zinc-700 dark:text-zinc-350 font-semibold">
+          <div className="w-12 h-[1px] bg-white/15 mx-auto" />
+          <p className="text-[0.85rem] uppercase tracking-widest text-zinc-200 font-semibold">
             Priceless guidelines directly from our decade in the field.
           </p>
         </div>
@@ -68,8 +62,8 @@ export default function TipsSection({ config, tips }: TipsSectionProps) {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`border rounded-lg transition-all duration-300 ${
                   isExpanded
-                    ? 'border-amber-400/60 bg-[#fffdfa]/40 dark:bg-zinc-900/40 shadow-md'
-                    : 'border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700'
+                    ? 'border-[#E5C158]/55 bg-white/5 shadow-md'
+                    : 'border-white/10 hover:border-[#E5C158]/30'
                 }`}
               >
                 {/* Header Toggle */}
@@ -82,7 +76,7 @@ export default function TipsSection({ config, tips }: TipsSectionProps) {
                     <span className="text-[0.58rem] font-mono tracking-[0.3em] text-amber-500 uppercase font-semibold">
                       {tip.category}
                     </span>
-                    <h3 className="text-[1.1rem] sm:text-[1.25rem] font-serif font-light tracking-wide text-zinc-800 dark:text-zinc-100">
+                    <h3 className="text-[1.1rem] sm:text-[1.25rem] font-serif font-light tracking-wide text-white">
                       {tip.title}
                     </h3>
                   </div>
@@ -105,12 +99,12 @@ export default function TipsSection({ config, tips }: TipsSectionProps) {
                       transition={{ duration: 0.35, ease: 'easeInOut' }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 sm:px-8 pb-8 text-[0.88rem] leading-relaxed text-zinc-800 dark:text-zinc-200 space-y-4 font-sans font-normal border-t border-zinc-200 dark:border-zinc-800/50 pt-6">
+                      <div className="px-6 sm:px-8 pb-8 text-[0.88rem] leading-relaxed text-zinc-200 space-y-4 font-sans font-normal border-t border-white/10 pt-6">
                         <p>{tip.content}</p>
                         
                         <div className="flex items-center gap-3 bg-amber-500/5 dark:bg-amber-400/5 p-4 rounded-md border border-amber-300/10">
                           <Sparkles className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                          <span className="text-[0.72rem] text-amber-800 dark:text-amber-200 tracking-wide font-sans">
+                          <span className="text-[0.72rem] text-amber-200 tracking-wide font-sans">
                             Interested in talking more about this guideline during your alignment session? Mention this in your inquiry script!
                           </span>
                         </div>
