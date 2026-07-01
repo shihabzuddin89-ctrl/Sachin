@@ -41,8 +41,16 @@ export default function App() {
   const [reviews, setReviews] = useState<ReviewItem[]>(DEFAULT_REVIEWS);
   const [tips, setTips] = useState<TipItem[]>(DEFAULT_TIPS);
 
+  // Active page routing state helper
+  const getPageFromHash = () => {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return 'home';
+    const validPages = ['home', 'about', 'portfolio', 'services', 'films', 'journal', 'faq', 'contact'];
+    return validPages.includes(hash) ? hash : 'home';
+  };
+
   // Active page routing state
-  const [currentPage, setCurrentPage] = useState<string>('home');
+  const [currentPage, setCurrentPage] = useState<string>(getPageFromHash);
   const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
 
   useEffect(() => {
@@ -68,16 +76,40 @@ export default function App() {
     };
   }, []);
 
+  // Listen to hash change for browser back/forward buttons
+  useEffect(() => {
+    const handleHashChange = () => {
+      const page = getPageFromHash();
+      setCurrentPage(page);
+      if (lenisInstance) {
+        lenisInstance.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, [lenisInstance]);
+
   // Lighthouse Lightbox indices
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
 
-  // Scroll to top on page switches
+  // Scroll to top on page switches and sync with browser hash
   const handleNavigate = (pageId: string) => {
-    setCurrentPage(pageId);
-    if (lenisInstance) {
-      lenisInstance.scrollTo(0, { immediate: true });
+    const targetHash = pageId === 'home' ? '' : `#${pageId}`;
+    
+    if (window.location.hash === targetHash || (window.location.hash === '' && targetHash === '')) {
+      setCurrentPage(pageId);
+      if (lenisInstance) {
+        lenisInstance.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
     } else {
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      window.location.hash = targetHash;
     }
   };
 
@@ -108,7 +140,7 @@ export default function App() {
       setFilms(DEFAULT_FILMS);
       setReviews(DEFAULT_REVIEWS);
       setTips(DEFAULT_TIPS);
-      setCurrentPage('home');
+      handleNavigate('home');
     }
   };
 
