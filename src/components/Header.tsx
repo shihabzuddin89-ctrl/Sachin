@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ThemeConfig } from '../types';
 import { COLOR_PALETTES } from '../data';
@@ -8,9 +8,10 @@ interface HeaderProps {
   config: ThemeConfig;
   currentPage: string;
   onNavigate: (page: string) => void;
+  onThemeToggle?: () => void;
 }
 
-export default function Header({ config, currentPage, onNavigate }: HeaderProps) {
+export default function Header({ config, currentPage, onNavigate, onThemeToggle }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -53,12 +54,16 @@ export default function Header({ config, currentPage, onNavigate }: HeaderProps)
 
   const isHeaderOnDarkBg = config.themeMode === 'dark';
 
+  const isDarkMode = config.themeMode === 'dark';
+
   return (
     <header
       id="main-header"
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
         isScrolled
-          ? 'bg-[#060709]/85 backdrop-blur-md shadow-lg border-b border-[#E5C158]/10'
+          ? isDarkMode
+            ? 'bg-[#060709]/85 backdrop-blur-md shadow-lg border-b border-[#C5A880]/10'
+            : 'bg-[#E4E3DE]/85 backdrop-blur-md shadow-md border-b border-[#C5A880]/10'
           : 'bg-transparent border-b border-transparent'
       } h-[52px] lg:h-[68px] flex items-center`}
     >
@@ -75,10 +80,12 @@ export default function Header({ config, currentPage, onNavigate }: HeaderProps)
               }}
               className="flex flex-col items-start transition-opacity duration-300 hover:opacity-80 shrink-0"
             >
-              <span className={`text-[1.12rem] lg:text-[1.22rem] font-light tracking-[0.22em] ${logoFontClass} text-[#E5C158]`}>
+              <span className={`text-[1.12rem] lg:text-[1.22rem] font-light tracking-[0.22em] ${logoFontClass} text-[#C5A880]`}>
                 {config.studioName.toUpperCase()}
               </span>
-              <span className="text-[0.5rem] tracking-[0.45em] text-white/95 -mt-1 font-sans pl-0.5 font-medium">
+              <span className={`text-[0.5rem] tracking-[0.45em] -mt-1 font-sans pl-0.5 font-medium ${
+                isDarkMode ? 'text-white/95' : 'text-zinc-800'
+              }`}>
                 PHOTO + FILM
               </span>
             </a>
@@ -91,15 +98,17 @@ export default function Header({ config, currentPage, onNavigate }: HeaderProps)
                 id={`nav-link-${item.id}`}
                 key={item.id}
                 onClick={() => handleNavLinkClick(item.id)}
-                className={`text-[0.64rem] font-sans tracking-[0.22em] font-semibold transition-colors cursor-pointer relative py-0.5 hover:text-[#E5C158] ${
+                className={`text-[0.64rem] font-sans tracking-[0.22em] font-semibold transition-colors cursor-pointer relative py-0.5 hover:text-[#C5A880] ${
                   currentPage === item.id
-                    ? 'text-[#E5C158]'
-                    : 'text-white'
+                    ? 'text-[#C5A880]'
+                    : isDarkMode
+                    ? 'text-white'
+                    : 'text-zinc-800'
                 }`}
               >
                 {item.label}
                 {currentPage === item.id && (
-                  <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#E5C158] rounded" />
+                  <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#C5A880] rounded" />
                 )}
               </button>
             ))}
@@ -107,10 +116,28 @@ export default function Header({ config, currentPage, onNavigate }: HeaderProps)
 
           {/* Right Column: Inquire CTA Button */}
           <div className="flex justify-end items-center gap-4 shrink-0">
+            {onThemeToggle && (
+              <button
+                onClick={onThemeToggle}
+                className={`cursor-pointer p-2 rounded-full transition-all duration-300 ${
+                  isDarkMode 
+                    ? 'text-zinc-400 hover:text-amber-400 hover:bg-white/5' 
+                    : 'text-zinc-500 hover:text-amber-600 hover:bg-black/5'
+                }`}
+                title={`Switch to ${isDarkMode ? 'Light' : 'Dark'} Mode`}
+                aria-label="Toggle Theme"
+              >
+                {isDarkMode ? (
+                  <Sun className="w-4 h-4" />
+                ) : (
+                  <Moon className="w-4 h-4" />
+                )}
+              </button>
+            )}
             <button
               id="header-cta-button"
               onClick={() => handleNavLinkClick('contact')}
-              className="cursor-pointer px-4 py-2 text-[0.64rem] tracking-[0.22em] font-sans font-semibold border border-[#E5C158]/40 text-[#E5C158] rounded-full transition-all duration-300 flex items-center gap-1.5 hover:-translate-y-[1px] hover:shadow-xs hover:bg-[#E5C158] hover:text-[#0A1931] hover:border-[#E5C158]"
+              className="cursor-pointer px-4 py-2 text-[0.64rem] tracking-[0.22em] font-sans font-semibold border border-[#C5A880]/40 text-[#C5A880] rounded-full transition-all duration-300 flex items-center gap-1.5 hover:-translate-y-[1px] hover:shadow-xs hover:bg-[#C5A880] hover:text-[#060709] hover:border-[#C5A880]"
             >
               INQUIRE
               <ArrowRight className="w-3 h-3" />
@@ -129,23 +156,46 @@ export default function Header({ config, currentPage, onNavigate }: HeaderProps)
             }}
             className="flex flex-col items-start transition-opacity duration-300 hover:opacity-80"
           >
-            <span className={`text-[1.02rem] font-light tracking-[0.22em] ${logoFontClass} text-[#E5C158]`}>
+            <span className={`text-[1.02rem] font-light tracking-[0.22em] ${logoFontClass} text-[#C5A880]`}>
               {config.studioName.toUpperCase()}
             </span>
-            <span className="text-[0.48rem] tracking-[0.45em] text-[#E5C158]/95 -mt-1 font-sans pl-0.5 font-medium">
+            <span className={`text-[0.48rem] tracking-[0.45em] -mt-1 font-sans pl-0.5 font-medium ${
+              isDarkMode ? 'text-white/95' : 'text-zinc-800'
+            }`}>
               PHOTO + FILM
             </span>
           </a>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            id="mobile-menu-toggle"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-1.5 rounded-full hover:bg-white/10 transition-colors text-[#E5C158]"
-            aria-label="Toggle Menu"
-          >
-            {mobileMenuOpen ? <X className="w-5.5 h-5.5" /> : <Menu className="w-5.5 h-5.5" />}
-          </button>
+          <div className="flex items-center gap-2">
+            {onThemeToggle && (
+              <button
+                onClick={onThemeToggle}
+                className={`p-2 rounded-full transition-all duration-300 ${
+                  isDarkMode 
+                    ? 'text-zinc-400 hover:text-amber-400 hover:bg-white/5' 
+                    : 'text-zinc-500 hover:text-amber-600 hover:bg-black/5'
+                }`}
+                title={`Switch to ${isDarkMode ? 'Light' : 'Dark'} Mode`}
+                aria-label="Toggle Theme"
+              >
+                {isDarkMode ? (
+                  <Sun className="w-4.5 h-4.5" />
+                ) : (
+                  <Moon className="w-4.5 h-4.5" />
+                )}
+              </button>
+            )}
+
+            {/* Mobile Menu Toggle */}
+            <button
+              id="mobile-menu-toggle"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-1.5 rounded-full hover:bg-white/10 transition-colors text-[#C5A880]"
+              aria-label="Toggle Menu"
+            >
+              {mobileMenuOpen ? <X className="w-5.5 h-5.5" /> : <Menu className="w-5.5 h-5.5" />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -158,25 +208,33 @@ export default function Header({ config, currentPage, onNavigate }: HeaderProps)
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-50 flex flex-col justify-between py-6 px-6 md:px-12 min-h-screen bg-[#060709] text-white"
+            className={`fixed inset-0 z-50 flex flex-col justify-between py-6 px-6 md:px-12 min-h-screen transition-colors duration-500 ${
+              isDarkMode ? 'bg-[#060709] text-white' : 'bg-[#E4E3DE] text-zinc-900'
+            }`}
           >
             {/* Ambient luxury subtle glow for dark mode */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(229,193,88,0.06),transparent_50%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(197,168,128,0.06),transparent_50%)] pointer-events-none" />
 
             {/* Header row inside mobile menu */}
             <div className="flex items-center justify-between relative z-10">
               <div className="flex flex-col text-left">
-                <span className="text-[0.62rem] font-mono tracking-[0.35em] font-bold text-[#E5C158] uppercase">
+                <span className="text-[0.62rem] font-mono tracking-[0.35em] font-bold text-[#C5A880] uppercase">
                   {config.studioName.toUpperCase()}
                 </span>
-                <span className="text-[0.45rem] font-sans tracking-[0.4em] text-zinc-300 uppercase mt-0.5 font-medium">
+                <span className={`text-[0.45rem] font-sans tracking-[0.4em] uppercase mt-0.5 font-medium ${
+                  isDarkMode ? 'text-zinc-300' : 'text-zinc-600'
+                }`}>
                   REVEL IN TIMELESS STORIES
                 </span>
               </div>
               <button
                 id="close-mobile-menu-btn"
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-2.5 rounded-full border border-white/20 text-white hover:bg-white/10 transition-all duration-300 cursor-pointer"
+                className={`p-2.5 rounded-full border transition-all duration-300 cursor-pointer ${
+                  isDarkMode 
+                    ? 'border-white/20 text-white hover:bg-white/10' 
+                    : 'border-zinc-200 text-zinc-900 hover:bg-zinc-100'
+                }`}
                 aria-label="Close Menu"
               >
                 <X className="w-5 h-5 stroke-[1.5]" />
@@ -203,13 +261,15 @@ export default function Header({ config, currentPage, onNavigate }: HeaderProps)
                     <span 
                       className={`text-xl sm:text-2xl font-light tracking-[0.14em] uppercase font-sans transition-all duration-300 relative ${
                         isActive 
-                          ? 'text-[#E5C158] tracking-[0.18em] font-medium pl-1' 
-                          : 'text-zinc-200 hover:text-[#E5C158] hover:tracking-[0.18em]'
+                          ? 'text-[#C5A880] tracking-[0.18em] font-medium pl-1' 
+                          : isDarkMode
+                          ? 'text-zinc-200 hover:text-[#C5A880] hover:tracking-[0.18em]'
+                          : 'text-zinc-800 hover:text-[#C5A880] hover:tracking-[0.18em]'
                       }`}
                     >
                       {item.label}
                       {isActive && (
-                        <span className="absolute -left-1.5 top-[50%] -translate-y-[50%] w-1 h-1 bg-[#E5C158] rounded-full" />
+                        <span className="absolute -left-1.5 top-[50%] -translate-y-[50%] w-1 h-1 bg-[#C5A880] rounded-full" />
                       )}
                     </span>
                   </motion.button>
@@ -218,7 +278,9 @@ export default function Header({ config, currentPage, onNavigate }: HeaderProps)
             </div>
 
             {/* Bottom Segment */}
-            <div className="flex flex-col mt-auto relative z-10 pt-4 border-t border-white/10">
+            <div className={`flex flex-col mt-auto relative z-10 pt-4 border-t ${
+              isDarkMode ? 'border-white/10' : 'border-zinc-200'
+            }`}>
               <motion.button
                 id="mobile-header-cta"
                 initial={{ opacity: 0, y: 15 }}
@@ -228,12 +290,14 @@ export default function Header({ config, currentPage, onNavigate }: HeaderProps)
                   setMobileMenuOpen(false);
                   onNavigate('contact');
                 }}
-                className="relative w-full py-3.5 tracking-[0.25em] text-[0.66rem] font-sans font-semibold uppercase rounded-full transition-all duration-300 overflow-hidden shadow-xs hover:shadow-md cursor-pointer text-center bg-[#E5C158] border border-[#E5C158] text-[#0A1931] hover:bg-[#F3D17E] hover:border-[#F3D17E]"
+                className="relative w-full py-3.5 tracking-[0.25em] text-[0.66rem] font-sans font-semibold uppercase rounded-full transition-all duration-300 overflow-hidden shadow-xs hover:shadow-md cursor-pointer text-center bg-[#C5A880] border border-[#C5A880] text-[#060709] hover:bg-[#D4B48F] hover:border-[#D4B48F]"
               >
                 COMMISSION OUR STUDIO &nbsp;&rarr;
               </motion.button>
               
-              <div className="flex items-center justify-between mt-3 text-[0.52rem] font-mono tracking-[0.3em] text-zinc-400 uppercase">
+              <div className={`flex items-center justify-between mt-3 text-[0.52rem] font-mono tracking-[0.3em] uppercase ${
+                isDarkMode ? 'text-zinc-400' : 'text-zinc-600'
+              }`}>
                 <span>{config.location.toUpperCase()}</span>
                 <span>SOURAV GUPTA &copy; 2026</span>
               </div>

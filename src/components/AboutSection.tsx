@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Camera, Film, Heart, Smile, Play, Volume2, VolumeX, Maximize2, X } from 'lucide-react';
 import { ThemeConfig } from '../types';
+import { FadeUpReveal, StaggerContainer, StaggerItem, TextLineReveal, ScrollScaleContainer } from './ScrollReveal';
 
 interface AboutSectionProps {
   config: ThemeConfig;
@@ -81,23 +82,23 @@ export default function AboutSection({ config, onNavigate }: AboutSectionProps) 
   return (
     <section
       id="about"
-      className="pt-24 pb-0 md:pt-32 md:pb-0 px-6 md:px-12 transition-colors duration-500 overflow-hidden bg-[#060709] text-white"
+      className={`pt-24 pb-0 md:pt-32 md:pb-0 px-6 md:px-12 transition-colors duration-500 overflow-hidden ${
+        isDarkMode ? 'bg-[#060709] text-white' : 'bg-[#E4E3DE] text-zinc-900'
+      }`}
     >
       <div className="max-w-7xl mx-auto">
         {/* Dynamic Explore Navigation with 4 options */}
         <div id="home-explore-navigation" className="mb-24 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="flex flex-col items-center"
-          >
-            <h2 className="text-3xl md:text-5xl font-light tracking-[0.4em] uppercase font-serif mb-16 text-white">
-              EXPLORE
-            </h2>
+          <div className="flex flex-col items-center">
+            <FadeUpReveal>
+              <h2 className={`text-3xl md:text-5xl font-light tracking-[0.4em] uppercase font-serif mb-16 ${
+                isDarkMode ? 'text-white' : 'text-zinc-900'
+              }`}>
+                EXPLORE
+              </h2>
+            </FadeUpReveal>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 w-full">
+            <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 w-full">
               {[
                 { 
                   label: 'Wedding', 
@@ -109,7 +110,7 @@ export default function AboutSection({ config, onNavigate }: AboutSectionProps) 
                   label: 'Films', 
                   id: 'films', 
                   desc: 'Cinematic Cinema',
-                  video: 'https://player.vimeo.com/external/435674703.sd.mp4?s=7ef06b72d242efbe1697669d0d9f48f4305bc768&profile_id=165&oauth2_token_id=57447761',
+                  video: 'https://vjs.zencdn.net/v/oceans.mp4',
                   image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800'
                 },
                 { 
@@ -125,69 +126,74 @@ export default function AboutSection({ config, onNavigate }: AboutSectionProps) 
                   image: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800'
                 },
               ].map((opt) => (
-                <button
-                  id={`explore-btn-${opt.id}`}
+                <StaggerItem
                   key={opt.id}
-                  onClick={() => onNavigate && onNavigate(opt.id)}
-                  className="group relative py-10 px-8 text-left overflow-hidden transition-all duration-700 rounded-2xl md:rounded-3xl flex flex-col justify-end h-64 sm:h-80 md:h-[420px] cursor-pointer border border-zinc-200/10 shadow-2xl"
+                  className="w-full h-full"
                 >
-                  {/* Media background overlay layer */}
-                  {opt.video ? (
-                    <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
-                      <video
-                        src={opt.video}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        poster={opt.image}
-                        className="absolute inset-0 w-full h-full object-cover scale-[1.05] group-hover:scale-110 transition-transform duration-[1200ms] ease-out opacity-85"
-                      />
+                  <button
+                    id={`explore-btn-${opt.id}`}
+                    onClick={() => onNavigate && onNavigate(opt.id)}
+                    className="group relative py-10 px-8 text-left overflow-hidden transition-all duration-700 rounded-2xl md:rounded-3xl flex flex-col justify-end h-64 sm:h-80 md:h-[420px] w-full cursor-pointer border border-zinc-200/10 shadow-2xl"
+                  >
+                    {/* Media background overlay layer */}
+                    {opt.video ? (
+                      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
+                        <video
+                          src={opt.video}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          poster={opt.image}
+                          className="absolute inset-0 w-full h-full object-cover scale-[1.05] group-hover:scale-110 transition-transform duration-[1200ms] ease-out opacity-85"
+                        />
+                      </div>
+                    ) : (
+                      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
+                        <img
+                          src={opt.image}
+                          alt={opt.label}
+                          referrerPolicy="no-referrer"
+                          className="absolute inset-0 w-full h-full object-cover scale-[1.05] group-hover:scale-110 transition-transform duration-[1200ms] ease-out opacity-85"
+                        />
+                      </div>
+                    )}
+
+                    {/* Dark premium vignette/tint overlay */}
+                    <div className="absolute inset-0 bg-zinc-950/50 group-hover:bg-zinc-950/35 transition-colors duration-500 z-10" />
+
+                    {/* Subtle lower gold accent slide up */}
+                    <div className="absolute inset-x-0 bottom-0 h-[4px] bg-amber-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-20" />
+
+                    <div className="z-20">
+                      <h3 className="text-xl md:text-2xl font-light tracking-widest font-serif text-white group-hover:text-amber-300 transition-colors duration-300 uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                        {opt.label}
+                      </h3>
+                      <p className="text-[0.75rem] md:text-[0.82rem] text-zinc-100 mt-2 font-sans font-light tracking-wide drop-shadow-[0_1.5px_3px_rgba(0,0,0,0.85)]">
+                        {opt.desc}
+                      </p>
                     </div>
-                  ) : (
-                    <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
-                      <img
-                        src={opt.image}
-                        alt={opt.label}
-                        referrerPolicy="no-referrer"
-                        className="absolute inset-0 w-full h-full object-cover scale-[1.05] group-hover:scale-110 transition-transform duration-[1200ms] ease-out opacity-85"
-                      />
-                    </div>
-                  )}
-
-                  {/* Dark premium vignette/tint overlay */}
-                  <div className="absolute inset-0 bg-zinc-950/50 group-hover:bg-zinc-950/35 transition-colors duration-500 z-10" />
-
-                  {/* Subtle lower gold accent slide up */}
-                  <div className="absolute inset-x-0 bottom-0 h-[4px] bg-amber-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-20" />
-
-                  <div className="z-20">
-                    <h3 className="text-xl md:text-2xl font-light tracking-widest font-serif text-white group-hover:text-amber-300 transition-colors duration-300 uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
-                      {opt.label}
-                    </h3>
-                    <p className="text-[0.75rem] md:text-[0.82rem] text-zinc-100 mt-2 font-sans font-light tracking-wide drop-shadow-[0_1.5px_3px_rgba(0,0,0,0.85)]">
-                      {opt.desc}
-                    </p>
-                  </div>
-                </button>
+                  </button>
+                </StaggerItem>
               ))}
-            </div>
-          </motion.div>
+            </StaggerContainer>
+          </div>
         </div>
 
         {/* Cinematic Running Video Showcase Block (Full Viewport Width Bleed) */}
-        <div className="w-screen relative left-1/2 -translate-x-1/2 overflow-hidden bg-zinc-950 h-[50vh] sm:h-[65vh] md:h-[80vh] lg:h-[85vh] shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
+        <ScrollScaleContainer className="w-screen relative left-1/2 -translate-x-1/2 bg-zinc-950 h-[50vh] sm:h-[65vh] md:h-[80vh] lg:h-[85vh] shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
           {/* Autoplaying Loop Video */}
           <video
             ref={bgVideoRef}
-            src="https://player.vimeo.com/external/435674703.sd.mp4?s=7ef06b72d242efbe1697669d0d9f48f4305bc768&profile_id=165&oauth2_token_id=57447761"
+            src="https://vjs.zencdn.net/v/oceans.mp4"
+            poster="https://images.unsplash.com/photo-1519225495810-7512c696505a?q=80&w=1200&auto=format&fit=crop"
             autoPlay
             loop
             muted
             playsInline
             className="absolute inset-0 w-full h-full object-cover select-none"
           />
-        </div>
+        </ScrollScaleContainer>
       </div>
 
       {/* Cinematic Immersive Theater Overlay Modal - Full Screen */}
@@ -207,7 +213,8 @@ export default function AboutSection({ config, onNavigate }: AboutSectionProps) 
             <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
               <video
                 ref={theaterVideoRef}
-                src="https://player.vimeo.com/external/435674703.sd.mp4?s=7ef06b72d242efbe1697669d0d9f48f4305bc768&profile_id=165&oauth2_token_id=57447761"
+                src="https://vjs.zencdn.net/v/oceans.mp4"
+                poster="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop"
                 autoPlay
                 loop
                 muted={theaterMuted}

@@ -2,6 +2,7 @@ import { useState, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Send, CheckCircle2, Heart, Calendar, MapPin, Sparkles, X } from 'lucide-react';
 import { ThemeConfig } from '../types';
+import { FadeUpReveal } from './ScrollReveal';
 
 interface ContactSectionProps {
   config: ThemeConfig;
@@ -51,19 +52,27 @@ export default function ContactSection({ config }: ContactSectionProps) {
       
       {/* 1. TOP PORTION: Toronto Wedding Photographer Serving Ontario & Worldwide */}
       <div 
-        className="py-24 md:py-32 px-6 md:px-12 text-center transition-colors duration-500 border-t border-white/5 bg-[#0E0F12] text-white"
+        className={`py-20 md:py-24 px-6 md:px-12 text-center transition-colors duration-500 border-t ${
+          isDarkMode 
+            ? 'border-white/5 bg-[#0E0F12] text-white' 
+            : 'border-zinc-200 bg-[#E4E3DE] text-zinc-900'
+        }`}
       >
-        <div className="max-w-4xl mx-auto space-y-8">
-          <h2 className="text-3xl sm:text-4.5xl md:text-5.5xl lg:text-6.5xl font-extralight tracking-tight text-white leading-tight uppercase font-serif">
+        <FadeUpReveal className="max-w-4xl mx-auto space-y-8">
+          <h2 className={`text-3xl sm:text-4.5xl md:text-5.5xl lg:text-6.5xl font-extralight tracking-tight leading-tight uppercase font-serif ${
+            isDarkMode ? 'text-white' : 'text-zinc-900'
+          }`}>
             TORONTO WEDDING <br className="hidden sm:inline" />
             PHOTOGRAPHER SERVING <br />
-            <span className="font-serif italic font-normal text-[#E5C158]">ONTARIO & WORLDWIDE</span>
+            <span className="font-serif italic font-normal text-[#C5A880]">ONTARIO & WORLDWIDE</span>
           </h2>
           
-          <p className="max-w-3xl mx-auto text-xs sm:text-[0.88rem] leading-relaxed text-zinc-200 font-sans tracking-wide">
-            As a <strong className="font-semibold text-white">Toronto wedding photographer</strong>, my work blends editorial direction with documentary storytelling. I photograph weddings across Toronto and throughout Ontario, including Oakville, Mississauga, Hamilton, Burlington, Caledon, Niagara, Barrie, Markham, Vaughan, and Muskoka, while also capturing destination weddings worldwide. My goal is to create timeless images that feel natural, emotional, and beautifully composed.
+          <p className={`max-w-3xl mx-auto text-xs sm:text-[0.88rem] leading-relaxed font-sans tracking-wide ${
+            isDarkMode ? 'text-zinc-200' : 'text-zinc-700'
+          }`}>
+            As a <strong className={`font-semibold ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>Toronto wedding photographer</strong>, my work blends editorial direction with documentary storytelling. I photograph weddings across Toronto and throughout Ontario, including Oakville, Mississauga, Hamilton, Burlington, Caledon, Niagara, Barrie, Markham, Vaughan, and Muskoka, while also capturing destination weddings worldwide. My goal is to create timeless images that feel natural, emotional, and beautifully composed.
           </p>
-        </div>
+        </FadeUpReveal>
       </div>
 
       {/* 2. BOTTOM PORTION: Immersive Romantic Backdrop Banner with "Something Magical" */}
@@ -86,7 +95,7 @@ export default function ContactSection({ config }: ContactSectionProps) {
         </div>
 
         {/* Content overlay */}
-        <div className="relative z-10 max-w-5xl space-y-6">
+        <FadeUpReveal className="relative z-10 max-w-5xl space-y-6">
           <span className="block font-serif italic text-amber-400 text-lg sm:text-2xl tracking-wide font-light select-none">
             Let's Make
           </span>
@@ -107,7 +116,7 @@ export default function ContactSection({ config }: ContactSectionProps) {
               INQUIRE NOW
             </button>
           </div>
-        </div>
+        </FadeUpReveal>
       </div>
 
       {/* 3. POPUP MODAL: Interactive Editorial Booking Form */}

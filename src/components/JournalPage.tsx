@@ -95,6 +95,8 @@ export default function JournalPage({ config }: JournalPageProps) {
   const [likes, setLikes] = useState<Record<string, number>>({});
   const [isLiked, setIsLiked] = useState<Record<string, boolean>>({});
 
+  const isDarkMode = config.themeMode === 'dark';
+
   const handleLike = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     setIsLiked(prev => {
@@ -132,12 +134,12 @@ export default function JournalPage({ config }: JournalPageProps) {
               className="space-y-16"
             >
               {/* Title Block */}
-              <div className="pb-8 border-b border-white/10">
+              <div className={`pb-8 border-b ${isDarkMode ? 'border-white/10' : 'border-zinc-300'}`}>
                 <div className="space-y-3 max-w-3xl">
-                  <h1 className={`text-4xl md:text-5xl font-light tracking-tight text-white ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
-                    Stories beautifully <span className="italic font-serif text-[#E5C158]">recorded</span>.
+                  <h1 className={`text-4xl md:text-5xl font-light tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-900'} ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
+                    Stories beautifully <span className="italic font-serif text-[#C5A880]">recorded</span>.
                   </h1>
-                  <p className="text-xs text-zinc-300 uppercase tracking-widest font-sans">
+                  <p className={`text-xs uppercase tracking-widest font-sans ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
                     A behind-the-scenes anthology of fine-art celebrations, travel notes, and light study.
                   </p>
                 </div>
@@ -151,8 +153,10 @@ export default function JournalPage({ config }: JournalPageProps) {
                     onClick={() => setActiveCategory(cat)}
                     className={`px-5 py-2.5 rounded-full text-[0.65rem] tracking-[0.25em] font-sans font-medium uppercase border transition-all duration-300 cursor-pointer ${
                       activeCategory === cat
-                        ? 'bg-[#E5C158] text-[#0A1931] border-[#E5C158]'
-                        : 'border-white/10 hover:border-[#E5C158]/40 text-zinc-300'
+                        ? 'bg-[#C5A880] text-[#0A1931] border-[#C5A880]'
+                        : isDarkMode
+                          ? 'border-white/10 hover:border-[#C5A880]/40 text-zinc-300'
+                          : 'border-zinc-300 hover:border-[#C5A880]/40 text-zinc-600'
                     }`}
                   >
                     {cat}
@@ -195,38 +199,42 @@ export default function JournalPage({ config }: JournalPageProps) {
 
                       {/* Article summary details */}
                       <div className="space-y-3">
-                        <div className="flex items-center gap-6 text-[0.62rem] font-mono text-zinc-400">
+                        <div className={`flex items-center gap-6 text-[0.62rem] font-mono ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
                           <span className="flex items-center gap-1.5 uppercase">
-                            <Calendar className="w-3 h-3 text-amber-500" />
+                            <Calendar className="w-3 h-3 text-[#C5A880]" />
                             {post.date}
                           </span>
                           <span className="flex items-center gap-1.5 uppercase">
-                            <MapPin className="w-3 h-3 text-amber-500" />
+                            <MapPin className="w-3 h-3 text-[#C5A880]" />
                             {post.location}
                           </span>
                         </div>
 
-                        <h2 className={`text-xl md:text-2xl font-light tracking-tight group-hover:text-amber-500 transition-colors duration-300 ${
+                        <h2 className={`text-xl md:text-2xl font-light tracking-tight group-hover:text-[#C5A880] transition-colors duration-300 ${
+                          isDarkMode ? 'text-white' : 'text-zinc-900'
+                        } ${
                           config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'
                         }`}>
                           {post.title}
                         </h2>
 
-                        <p className="text-xs text-zinc-300 leading-relaxed line-clamp-2 pr-6">
+                        <p className={`text-xs leading-relaxed line-clamp-2 pr-6 ${
+                          isDarkMode ? 'text-zinc-300' : 'text-zinc-700'
+                        }`}>
                           {post.excerpt}
                         </p>
 
-                        <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                          <span className="text-[0.62rem] font-mono text-amber-500 tracking-[0.3em] uppercase inline-flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
+                        <div className={`flex items-center justify-between pt-4 border-t ${isDarkMode ? 'border-white/10' : 'border-zinc-300'}`}>
+                          <span className="text-[0.62rem] font-mono text-[#C5A880] tracking-[0.3em] uppercase inline-flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
                             READ THE JOURNAL
                             <CornerDownRight className="w-3 h-3" />
                           </span>
 
-                          <div className="flex items-center gap-4 text-zinc-400">
+                          <div className={`flex items-center gap-4 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
                             <button
                               id={`journal-like-btn-${post.id}`}
                               onClick={(e) => handleLike(post.id, e)}
-                              className="hover:text-amber-500 flex items-center gap-1 text-[0.62rem] font-mono"
+                              className="hover:text-[#C5A880] flex items-center gap-1 text-[0.62rem] font-mono"
                             >
                               <Heart className={`w-3.5 h-3.5 ${isLiked[post.id] ? 'fill-rose-500 text-rose-500' : ''}`} />
                               {(likes[post.id] || 0) + 12}
@@ -253,14 +261,18 @@ export default function JournalPage({ config }: JournalPageProps) {
               <button
                 id="blog-back-btn"
                 onClick={() => setSelectedPost(null)}
-                className="inline-flex items-center gap-2.5 text-zinc-600 dark:text-zinc-300 font-sans text-xs tracking-[0.25em] uppercase hover:text-amber-500 cursor-pointer pt-4 group"
+                className={`inline-flex items-center gap-2.5 font-sans text-xs tracking-[0.25em] uppercase hover:text-[#C5A880] cursor-pointer pt-4 group ${
+                  isDarkMode ? 'text-zinc-300' : 'text-zinc-700'
+                }`}
               >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                 Back to Journal
               </button>
 
               {/* Big Cover Image Header */}
-              <div className="w-full aspect-[21/9] rounded-3xl overflow-hidden relative shadow-xl bg-zinc-900 border border-zinc-200/10">
+              <div className={`w-full aspect-[21/9] rounded-3xl overflow-hidden relative shadow-xl bg-zinc-900 border ${
+                isDarkMode ? 'border-white/10' : 'border-zinc-300'
+              }`}>
                 <img
                   src={selectedPost.coverImage}
                   alt={selectedPost.title}
@@ -269,7 +281,7 @@ export default function JournalPage({ config }: JournalPageProps) {
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-zinc-950/70 to-transparent" />
                 <div className="absolute bottom-8 left-8 md:left-12">
-                  <span className="text-[0.55rem] font-mono text-amber-500 tracking-[0.35em] uppercase bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-full backdrop-blur-xs">
+                  <span className="text-[0.55rem] font-mono text-[#C5A880] tracking-[0.35em] uppercase bg-[#C5A880]/10 border border-[#C5A880]/20 px-3 py-1.5 rounded-full backdrop-blur-xs">
                     {selectedPost.category.toUpperCase()}
                   </span>
                 </div>
@@ -277,20 +289,24 @@ export default function JournalPage({ config }: JournalPageProps) {
 
               {/* Post Metadata Overview */}
               <div className="space-y-6">
-                <div className="flex flex-wrap items-center gap-6 text-xs text-zinc-400 font-mono">
+                <div className={`flex flex-wrap items-center gap-6 text-xs font-mono ${
+                  isDarkMode ? 'text-zinc-400' : 'text-zinc-500'
+                }`}>
                   <span className="flex items-center gap-1.5 uppercase">
-                    <Calendar className="w-4 h-4 text-amber-500" />
+                    <Calendar className="w-4 h-4 text-[#C5A880]" />
                     {selectedPost.date}
                   </span>
                   <span className="flex items-center gap-1.5 uppercase">
-                    <MapPin className="w-4 h-4 text-amber-500" />
+                    <MapPin className="w-4 h-4 text-[#C5A880]" />
                     {selectedPost.location}
                   </span>
-                  <span className="text-zinc-500">|</span>
+                  <span className={isDarkMode ? 'text-zinc-700' : 'text-zinc-300'}>|</span>
                   <span>{selectedPost.readTime}</span>
                 </div>
 
                 <h1 className={`text-3xl md:text-5xl font-light tracking-tight leading-tight ${
+                  isDarkMode ? 'text-white' : 'text-zinc-900'
+                } ${
                   config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'
                 }`}>
                   {selectedPost.title}
@@ -298,22 +314,26 @@ export default function JournalPage({ config }: JournalPageProps) {
               </div>
 
               {/* Article Paragraph content block */}
-              <div className="prose prose-zinc dark:prose-invert max-w-none text-zinc-200 space-y-8 leading-relaxed tracking-wide text-sm font-light">
+              <div className={`prose prose-zinc max-w-none space-y-8 leading-relaxed tracking-wide text-sm font-light ${
+                isDarkMode ? 'text-zinc-200 prose-invert' : 'text-zinc-800'
+              }`}>
                 {selectedPost.paragraphs.map((p, index) => (
-                  <p key={index} className="first-letter:text-4xl first-letter:font-serif first-letter:text-amber-500 first-letter:mr-1 first-letter:float-left first-letter:font-bold">
-                    {index === 0 ? p : p}
+                  <p key={index} className="first-letter:text-4xl first-letter:font-serif first-letter:text-[#C5A880] first-letter:mr-1 first-letter:float-left first-letter:font-bold">
+                    {p}
                   </p>
                 ))}
               </div>
 
               {/* Split Photo Grid representing real wedding shoots */}
               <div className="space-y-4">
-                <span className="text-[0.62rem] font-mono text-amber-500 block tracking-[0.4em] uppercase">
+                <span className="text-[0.62rem] font-mono text-[#C5A880] block tracking-[0.4em] uppercase">
                   CAPTURED CHROMATIC FRAMES
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                   {selectedPost.gallery.map((img, index) => (
-                    <div key={index} className="aspect-[4/5] rounded-xl overflow-hidden shadow-xs hover:scale-[1.02] transition-transform duration-500 bg-zinc-900 border border-zinc-200/10">
+                    <div key={index} className={`aspect-[4/5] rounded-xl overflow-hidden shadow-xs hover:scale-[1.02] transition-transform duration-500 bg-zinc-900 border ${
+                      isDarkMode ? 'border-white/10' : 'border-zinc-300'
+                    }`}>
                       <img
                         src={img}
                         alt={`Ceremony highlight shot ${index}`}
@@ -326,7 +346,9 @@ export default function JournalPage({ config }: JournalPageProps) {
               </div>
 
               {/* Interactive Footer details */}
-              <div className="flex justify-between items-center pt-8 border-t border-zinc-100 dark:border-zinc-900">
+              <div className={`flex justify-between items-center pt-8 border-t ${
+                isDarkMode ? 'border-white/10' : 'border-zinc-300'
+              }`}>
                 <div className="flex gap-4">
                   <button
                     id="post-share-btn"
@@ -334,7 +356,11 @@ export default function JournalPage({ config }: JournalPageProps) {
                       navigator.clipboard.writeText(window.location.href);
                       alert('Story link copied to your clipboard!');
                     }}
-                    className="p-3 border border-zinc-200 dark:border-zinc-800 hover:border-amber-500/50 rounded-full transition-colors flex items-center justify-center cursor-pointer text-zinc-500 hover:text-amber-500"
+                    className={`p-3 border rounded-full transition-colors flex items-center justify-center cursor-pointer hover:border-[#C5A880]/50 ${
+                      isDarkMode 
+                        ? 'border-white/10 text-zinc-400 hover:text-[#C5A880]' 
+                        : 'border-zinc-300 text-zinc-600 hover:text-[#C5A880]'
+                    }`}
                     title="Share story"
                   >
                     <Share2 className="w-4 h-4" />
@@ -345,7 +371,9 @@ export default function JournalPage({ config }: JournalPageProps) {
                     className={`px-5 py-3 border rounded-full transition-colors flex items-center gap-2 cursor-pointer text-xs font-mono tracking-widest uppercase ${
                       isLiked[selectedPost.id]
                         ? 'border-rose-500 bg-rose-500/5 text-rose-500'
-                        : 'border-zinc-200 dark:border-zinc-800 hover:border-amber-500/50 text-zinc-400 hover:text-amber-500'
+                        : isDarkMode
+                          ? 'border-white/10 text-zinc-400 hover:text-[#C5A880]'
+                          : 'border-zinc-300 text-zinc-600 hover:text-[#C5A880]'
                     }`}
                   >
                     <Heart className={`w-4 h-4 ${isLiked[selectedPost.id] ? 'fill-rose-500' : ''}`} />
@@ -356,7 +384,7 @@ export default function JournalPage({ config }: JournalPageProps) {
                 <button
                   id="post-contact-redirect"
                   onClick={() => setSelectedPost(null)}
-                  className="text-xs font-mono text-amber-500 tracking-widest uppercase hover:underline"
+                  className="text-xs font-mono text-[#C5A880] tracking-widest uppercase hover:underline cursor-pointer"
                 >
                   Return to all files
                 </button>

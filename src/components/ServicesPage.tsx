@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Check, ArrowRight, HelpCircle, Sparkles, DollarSign, Clock, Camera, FileText } from 'lucide-react';
 import { ThemeConfig } from '../types';
+import { FadeUpReveal, StaggerContainer, StaggerItem } from './ScrollReveal';
 
 interface ServicesPageProps {
   config: ThemeConfig;
@@ -131,94 +132,87 @@ export default function ServicesPage({ config, onNavigate }: ServicesPageProps) 
 
         {/* Title Content */}
         <div className="max-w-3xl mb-24">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className={`text-4xl md:text-6xl font-light tracking-tight pb-6 ${
-              config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'
-            }`}
-          >
-            Invest in <span className="italic font-serif text-amber-500/90">your legacy</span>.
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-sm md:text-base text-zinc-800 dark:text-zinc-200 font-medium leading-relaxed max-w-2xl"
-          >
-            I believe that photography should be deeply felt. Our bespoke collections are tailored entirely to your requirements, crafted with premium standards, luxury leather albums, and master-retouched archives.
-          </motion.p>
+          <FadeUpReveal>
+            <h1
+              className={`text-4xl md:text-6xl font-light tracking-tight pb-6 ${
+                config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'
+              }`}
+            >
+              Invest in <span className="italic font-serif text-amber-500/90">your legacy</span>.
+            </h1>
+          </FadeUpReveal>
+          <FadeUpReveal delay={0.15}>
+            <p className="text-sm md:text-base text-zinc-800 dark:text-zinc-200 font-medium leading-relaxed max-w-2xl">
+              I believe that photography should be deeply felt. Our bespoke collections are tailored entirely to your requirements, crafted with premium standards, luxury leather albums, and master-retouched archives.
+            </p>
+          </FadeUpReveal>
         </div>
 
         {/* 3 Main Packages Card Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-28">
+        <StaggerContainer className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-28">
           {packages.map((pkg, index) => (
-            <motion.div
-              key={pkg.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.15, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className={`relative flex flex-col justify-between border p-8 md:p-10 transition-all duration-500 group rounded-2xl ${
-                config.themeMode === 'dark'
-                  ? 'bg-zinc-900/55 border-zinc-800 hover:border-amber-500/35'
-                  : 'bg-white border-zinc-200 hover:border-amber-500/35 shadow-xs'
-              }`}
-            >
-              <div>
-                {/* Badge decoration */}
-                <div className="flex items-center justify-between mb-8">
-                  <span className="text-[0.62rem] font-mono tracking-[0.35em] text-amber-600 dark:text-amber-400 font-bold uppercase">
-                    {pkg.subtitle}
-                  </span>
-                  <span className="text-[0.6rem] uppercase tracking-widest font-sans font-semibold px-2.5 py-1 bg-amber-500/10 text-amber-700 dark:text-amber-400 rounded-full">
-                    {pkg.badge}
-                  </span>
-                </div>
-
-                <h3 className={`text-2xl font-light mb-2 tracking-tight ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
-                  {pkg.title}
-                </h3>
-                <div className="flex items-baseline gap-2 mb-6 text-amber-500">
-                  <span className="text-3xl font-light font-sans">{pkg.price}</span>
-                  <span className="text-xs text-zinc-950 dark:text-zinc-50 font-bold">/ local experience</span>
-                </div>
-
-                <p className="text-xs text-zinc-950 dark:text-zinc-50 leading-relaxed font-bold mb-8">
-                  {pkg.description}
-                </p>
-
-                {/* Features Divider */}
-                <div className="w-full h-[1px] bg-zinc-300/60 dark:bg-zinc-800/60 mb-8" />
-
-                {/* Features List */}
-                <ul className="space-y-4 mb-10">
-                  {pkg.features.map((fea, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
-                      <Check className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                      <span className="text-xs text-zinc-950 dark:text-zinc-50 tracking-wide font-sans font-bold">
-                        {fea}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <button
-                id={`services-pkg-select-${pkg.id}`}
-                onClick={() => {
-                  setSelectedMainTier(pkg.id);
-                  const calcEl = document.getElementById('investment-calculator');
-                  if (calcEl) calcEl.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="w-full py-4 text-center cursor-pointer transition-all duration-300 text-xs font-sans font-medium tracking-[0.2em] uppercase border rounded-xl hover:-translate-y-0.5 hover:shadow-sm mt-auto bg-zinc-900 border-zinc-900 text-white dark:bg-zinc-800 dark:border-zinc-800 dark:hover:bg-zinc-700 hover:bg-black"
+            <StaggerItem key={pkg.id}>
+              <div
+                className={`relative h-full flex flex-col justify-between border p-8 md:p-10 transition-all duration-500 group rounded-2xl ${
+                  config.themeMode === 'dark'
+                    ? 'bg-zinc-900/55 border-zinc-800 hover:border-amber-500/35'
+                    : 'bg-white border-zinc-200 hover:border-amber-500/35 shadow-xs'
+                }`}
               >
-                SELECT & CALCULATE Addons
-              </button>
-            </motion.div>
+                <div>
+                  {/* Badge decoration */}
+                  <div className="flex items-center justify-between mb-8">
+                    <span className="text-[0.62rem] font-mono tracking-[0.35em] text-amber-600 dark:text-amber-400 font-bold uppercase">
+                      {pkg.subtitle}
+                    </span>
+                    <span className="text-[0.6rem] uppercase tracking-widest font-sans font-semibold px-2.5 py-1 bg-amber-500/10 text-amber-700 dark:text-amber-400 rounded-full">
+                      {pkg.badge}
+                    </span>
+                  </div>
+
+                  <h3 className={`text-2xl font-light mb-2 tracking-tight ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
+                    {pkg.title}
+                  </h3>
+                  <div className="flex items-baseline gap-2 mb-6 text-amber-500">
+                    <span className="text-3xl font-light font-sans">{pkg.price}</span>
+                    <span className="text-xs text-zinc-950 dark:text-zinc-50 font-bold">/ local experience</span>
+                  </div>
+
+                  <p className="text-xs text-zinc-950 dark:text-zinc-50 leading-relaxed font-bold mb-8">
+                    {pkg.description}
+                  </p>
+
+                  {/* Features Divider */}
+                  <div className="w-full h-[1px] bg-zinc-300/60 dark:bg-zinc-800/60 mb-8" />
+
+                  {/* Features List */}
+                  <ul className="space-y-4 mb-10">
+                    {pkg.features.map((fea, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <Check className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                        <span className="text-xs text-zinc-950 dark:text-zinc-50 tracking-wide font-sans font-bold">
+                          {fea}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <button
+                  id={`services-pkg-select-${pkg.id}`}
+                  onClick={() => {
+                    setSelectedMainTier(pkg.id);
+                    const calcEl = document.getElementById('investment-calculator');
+                    if (calcEl) calcEl.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="w-full py-4 text-center cursor-pointer transition-all duration-300 text-xs font-sans font-medium tracking-[0.2em] uppercase border rounded-xl hover:-translate-y-0.5 hover:shadow-sm mt-auto bg-zinc-900 border-zinc-900 text-white dark:bg-zinc-800 dark:border-zinc-800 dark:hover:bg-zinc-700 hover:bg-black"
+                >
+                  SELECT & CALCULATE Addons
+                </button>
+              </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Interactive Bespoke Pricing Estimator Section */}
         <div id="investment-calculator" className="mb-28 scroll-mt-24">

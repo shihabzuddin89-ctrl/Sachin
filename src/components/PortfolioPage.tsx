@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PhotoItem, ThemeConfig } from '../types';
 import { Maximize2, Sparkles, Filter, Sliders, ChevronLeft, ChevronRight, X, Heart } from 'lucide-react';
+import { FadeUpReveal, StaggerContainer, StaggerItem } from './ScrollReveal';
 
 interface PortfolioPageProps {
   config: ThemeConfig;
@@ -10,6 +11,7 @@ interface PortfolioPageProps {
 }
 
 export default function PortfolioPage({ config, photos, onSelectPhoto }: PortfolioPageProps) {
+  const isDarkMode = config.themeMode === 'dark';
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [hoveredPhotoId, setHoveredPhotoId] = useState<string | null>(null);
   
@@ -54,34 +56,44 @@ export default function PortfolioPage({ config, photos, onSelectPhoto }: Portfol
       <div className="max-w-7xl mx-auto">
         {/* Title details */}
         <div className="mb-16">
-          <div className="space-y-4 max-w-2xl">
-            <h1 className={`text-4xl md:text-6xl font-light tracking-tight text-white ${
+          <FadeUpReveal className="space-y-4 max-w-2xl">
+            <h1 className={`text-4xl md:text-6xl font-light tracking-tight ${
+              isDarkMode ? 'text-white' : 'text-zinc-900'
+            } ${
               config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'
             }`}>
-              Our signature <span className="italic font-serif text-[#E5C158]">imagery</span>.
+              Our signature <span className="italic font-serif text-[#C5A880]">imagery</span>.
             </h1>
-            <p className="text-xs md:text-sm text-zinc-300 leading-relaxed font-sans">
+            <p className={`text-xs md:text-sm leading-relaxed font-sans ${
+              isDarkMode ? 'text-zinc-300' : 'text-zinc-700'
+            }`}>
               Curated frames highlighting authentic laughter, quiet gazes, and the timeless textures of luxury celebrations. Filter our archives to view specific moments.
             </p>
-          </div>
+          </FadeUpReveal>
         </div>
 
         {/* Category Filters Bar */}
-        <div className="flex flex-wrap gap-2 md:gap-4 mb-16 border-b border-white/10 pb-8">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`px-5 py-3 rounded-xl text-[0.62rem] tracking-[0.25em] font-sans font-medium uppercase border transition-all duration-300 cursor-pointer ${
-                activeCategory === cat.id
-                  ? 'bg-[#E5C158] border-[#E5C158] text-[#060709]'
-                  : 'border-white/10 hover:border-[#E5C158]/30 text-zinc-300'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
+        <FadeUpReveal delay={0.1}>
+          <div className={`flex flex-wrap gap-2 md:gap-4 mb-16 border-b pb-8 ${
+            isDarkMode ? 'border-white/10' : 'border-zinc-300'
+          }`}>
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`px-5 py-3 rounded-xl text-[0.62rem] tracking-[0.25em] font-sans font-medium uppercase border transition-all duration-300 cursor-pointer ${
+                  activeCategory === cat.id
+                    ? 'bg-[#C5A880] border-[#C5A880] text-[#060709]'
+                    : isDarkMode 
+                      ? 'border-white/10 hover:border-[#C5A880]/30 text-zinc-300'
+                      : 'border-zinc-300 hover:border-[#C5A880]/30 text-zinc-600'
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+        </FadeUpReveal>
 
         {/* Elegant Masonry-style Bento Grid using Motion */}
         <motion.div
@@ -99,10 +111,10 @@ export default function PortfolioPage({ config, photos, onSelectPhoto }: Portfol
                 <motion.div
                   key={photo.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.04 }}
                   onClick={() => onSelectPhoto(fullGlobalIndex)}
                   onMouseEnter={() => setHoveredPhotoId(photo.id)}
                   onMouseLeave={() => setHoveredPhotoId(null)}
@@ -123,7 +135,7 @@ export default function PortfolioPage({ config, photos, onSelectPhoto }: Portfol
                   <div className="absolute inset-x-0 bottom-0 p-6 z-10 translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-[600ms] ease-out space-y-3">
                     <div className="flex justify-between items-center text-white">
                       <div>
-                        <span className="text-[0.6rem] font-mono tracking-widest text-[#E5C158] block uppercase">
+                        <span className="text-[0.6rem] font-mono tracking-widest text-[#C5A880] block uppercase">
                           {photo.location.toUpperCase()}
                         </span>
                         <h4 className={`text-base font-medium tracking-tight ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
@@ -135,9 +147,9 @@ export default function PortfolioPage({ config, photos, onSelectPhoto }: Portfol
                       <button
                         id={`photo-like-idx-${photo.id}`}
                         onClick={(e) => handleToggleLike(photo.id, e)}
-                        className="p-2 border border-white/20 hover:border-[#E5C158] rounded-full transition-colors flex items-center justify-center bg-zinc-950/40 hover:bg-rose-500/10 text-white group"
+                        className="p-2 border border-white/20 hover:border-[#C5A880] rounded-full transition-colors flex items-center justify-center bg-zinc-950/40 hover:bg-rose-500/10 text-white group"
                       >
-                        <Heart className={`w-3.5 h-3.5 ${isFav ? 'fill-rose-500 text-rose-500' : 'text-zinc-200 group-hover:text-[#E5C158]'}`} />
+                        <Heart className={`w-3.5 h-3.5 ${isFav ? 'fill-rose-500 text-rose-500' : 'text-zinc-200 group-hover:text-[#C5A880]'}`} />
                       </button>
                     </div>
 
@@ -165,11 +177,13 @@ export default function PortfolioPage({ config, photos, onSelectPhoto }: Portfol
         </motion.div>
 
         {/* Elegant CTA to contact form in case they browse portfolio and get inspired */}
-        <div className="text-center mt-28 border-t border-white/10 pt-20">
-          <p className="text-[0.62rem] font-mono tracking-[0.45em] text-[#E5C158] uppercase mb-4">
+        <div className={`text-center mt-28 border-t pt-20 ${isDarkMode ? 'border-white/10' : 'border-zinc-300'}`}>
+          <p className="text-[0.62rem] font-mono tracking-[0.45em] text-[#C5A880] uppercase mb-4">
             FEEL AN EMBRACE IN THE LIGHT?
           </p>
-          <h3 className={`text-2xl md:text-3xl font-light mb-8 max-w-lg mx-auto leading-tight text-white ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
+          <h3 className={`text-2xl md:text-3xl font-light mb-8 max-w-lg mx-auto leading-tight ${
+            isDarkMode ? 'text-white' : 'text-zinc-900'
+          } ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
             Let's capture your celebration in luxurious, cinematic fidelity.
           </h3>
           <button
@@ -180,7 +194,7 @@ export default function PortfolioPage({ config, photos, onSelectPhoto }: Portfol
                 inquiryEl.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="px-8 py-4 cursor-pointer bg-[#E5C158] hover:bg-[#F3D17E] text-[#060709] text-xs font-semibold tracking-widest uppercase rounded-xl transition-all hover:scale-101 hover:shadow-lg"
+            className="px-8 py-4 cursor-pointer bg-[#C5A880] hover:bg-[#D4B48F] text-[#060709] text-xs font-semibold tracking-widest uppercase rounded-xl transition-all hover:scale-101 hover:shadow-lg"
           >
             COMMISSION US TODAY
           </button>

@@ -41,11 +41,11 @@ export default function FilmsPage({ config, films }: FilmsPageProps) {
             {isPlaying ? (
               <div className="absolute inset-0 z-10 bg-zinc-950 flex flex-col items-center justify-center p-8 text-center space-y-6">
                 {/* Simulated high-fidelity player stream with retro scanner line */}
-                <div className="absolute inset-0 bg-radial-to-r from-[#E5C158]/5 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-radial-to-r from-[#C5A880]/5 to-transparent pointer-events-none" />
                 <div className="absolute h-[1px] w-full bg-white/5 top-1/2 left-0 animate-pulse pointer-events-none" />
                 
-                <span className="p-4 rounded-full border border-[#E5C158]/30 text-[#E5C158]/80 animate-ping">
-                  <Play className="w-6 h-6 fill-[#E5C158]" />
+                <span className="p-4 rounded-full border border-[#C5A880]/30 text-[#C5A880]/80 animate-ping">
+                  <Play className="w-6 h-6 fill-[#C5A880]" />
                 </span>
                 
                 <div className="space-y-2 max-w-sm">
@@ -71,7 +71,7 @@ export default function FilmsPage({ config, films }: FilmsPageProps) {
                   <button
                     id="film-sim-stop"
                     onClick={() => setIsPlaying(false)}
-                    className="px-4 py-2 bg-[#E5C158] text-[#060709] font-semibold rounded-lg text-[0.65rem] font-mono tracking-widest hover:bg-[#F3D17E] transition-colors"
+                    className="px-4 py-2 bg-[#C5A880] text-[#060709] font-semibold rounded-lg text-[0.65rem] font-mono tracking-widest hover:bg-[#D4B48F] transition-colors"
                   >
                     STOP FEED
                   </button>
@@ -94,21 +94,21 @@ export default function FilmsPage({ config, films }: FilmsPageProps) {
 
             {/* Static Controller Overlay */}
             <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8 z-5">
-              <span className="bg-zinc-900/90 backdrop-blur-xs text-[#E5C158] text-[0.55rem] font-mono tracking-[0.3em] uppercase px-3 py-1.5 rounded-md self-start border border-[#E5C158]/10">
+              <span className="bg-zinc-900/90 backdrop-blur-xs text-[#C5A880] text-[0.55rem] font-mono tracking-[0.3em] uppercase px-3 py-1.5 rounded-md self-start border border-[#C5A880]/10">
                 RECOMMENDED: WEAR HEADPHONES &middot; 4K
               </span>
 
               <button
                 id="film-play-toggle"
                 onClick={() => setIsPlaying(true)}
-                className="w-16 h-16 rounded-full bg-white/90 backdrop-blur-md text-[#E5C158] font-bold self-center hover:scale-110 shadow-xl border border-[#E5C158]/20 active:scale-95 transition-all duration-300 cursor-pointer flex items-center justify-center"
+                className="w-16 h-16 rounded-full bg-white/90 backdrop-blur-md text-[#C5A880] font-bold self-center hover:scale-110 shadow-xl border border-[#C5A880]/20 active:scale-95 transition-all duration-300 cursor-pointer flex items-center justify-center"
               >
-                <Play className="w-6 h-6 fill-[#E5C158] translate-x-0.5" />
+                <Play className="w-6 h-6 fill-[#C5A880] translate-x-0.5" />
               </button>
 
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 text-white">
                 <div className="space-y-1">
-                  <span className="text-[0.62rem] font-mono text-[#E5C158] tracking-wider flex items-center gap-1">
+                  <span className="text-[0.62rem] font-mono text-[#C5A880] tracking-wider flex items-center gap-1">
                     <MapPin className="w-3.5 h-3.5" />
                     {selectedFilm.location}
                   </span>
@@ -121,7 +121,7 @@ export default function FilmsPage({ config, films }: FilmsPageProps) {
                 </div>
 
                 <div className="flex items-center gap-3 bg-zinc-950/60 backdrop-blur-md px-4 py-2 border border-white/10 rounded-xl">
-                  <Film className="w-4 h-4 text-[#E5C158]" />
+                  <Film className="w-4 h-4 text-[#C5A880]" />
                   <span className="text-[0.58rem] font-mono tracking-widest text-zinc-100 font-semibold">
                     ANALOG KODAK SUPER 8 HIGHLIGHT
                   </span>
@@ -136,7 +136,7 @@ export default function FilmsPage({ config, films }: FilmsPageProps) {
               config.themeMode === 'dark' ? 'bg-zinc-900/40 border-zinc-800' : 'bg-white border-zinc-200 shadow-xs'
             } space-y-6 h-full flex flex-col justify-between`}>
               <div className="space-y-3">
-                <span className="text-[0.6rem] font-mono text-[#E5C158] tracking-[0.3em] uppercase block">
+                <span className="text-[0.6rem] font-mono text-[#C5A880] tracking-[0.3em] uppercase block">
                   ASTRONOMY AUDIO COGNITION
                 </span>
                 <h3 className={`text-xl font-light tracking-tight ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
@@ -157,19 +157,19 @@ export default function FilmsPage({ config, films }: FilmsPageProps) {
                       onClick={() => setActiveSoundtrackIndex(idx)}
                       className={`p-4 border rounded-xl cursor-pointer transition-all duration-300 flex items-start justify-between ${
                         isActive
-                          ? 'border-[#E5C158] bg-[#E5C158]/5'
-                          : 'border-white/10 hover:border-[#E5C158]/20'
+                          ? 'border-[#C5A880] bg-[#C5A880]/5'
+                          : 'border-white/10 hover:border-[#C5A880]/20'
                       }`}
                     >
                       <div className="space-y-1">
-                        <span className={`text-xs block font-sans font-medium ${isActive ? 'text-[#E5C158]' : 'text-zinc-200'}`}>
+                        <span className={`text-xs block font-sans font-medium ${isActive ? 'text-[#C5A880]' : 'text-zinc-200'}`}>
                           {track.name}
                         </span>
                         <span className="text-[0.58rem] text-zinc-300 font-mono block font-medium">
                           {track.genre} &middot; {track.bpm}
                         </span>
                       </div>
-                      <span className={`p-2 rounded-lg border shrink-0 ${isActive ? 'border-[#E5C158] bg-[#E5C158]/10 text-[#E5C158] animate-pulse' : 'border-white/10 text-zinc-300'}`}>
+                      <span className={`p-2 rounded-lg border shrink-0 ${isActive ? 'border-[#C5A880] bg-[#C5A880]/10 text-[#C5A880] animate-pulse' : 'border-white/10 text-zinc-300'}`}>
                         <Music className="w-3.5 h-3.5" />
                       </span>
                     </div>
@@ -180,7 +180,7 @@ export default function FilmsPage({ config, films }: FilmsPageProps) {
               <div className="border-t border-zinc-200 dark:border-zinc-800 pt-6 mt-6">
                 <div className="flex justify-between items-center text-[0.6rem] font-mono tracking-widest text-zinc-700 dark:text-zinc-300 uppercase font-semibold">
                   <span>Selected Mood:</span>
-                  <span className="text-[#E5C158]">{soundscapes[activeSoundtrackIndex].bpm} preset</span>
+                  <span className="text-[#C5A880]">{soundscapes[activeSoundtrackIndex].bpm} preset</span>
                 </div>
                 <p className="text-[0.65rem] text-zinc-805 dark:text-zinc-200 mt-2 leading-relaxed font-medium">
                   {soundscapes[activeSoundtrackIndex].vibe}
@@ -210,8 +210,8 @@ export default function FilmsPage({ config, films }: FilmsPageProps) {
                   }}
                   className={`cursor-pointer group relative border p-4 rounded-2xl transition-all duration-300 ${
                     isCurrent
-                      ? 'border-[#E5C158] bg-[#E5C158]/5'
-                      : 'border-white/10 hover:border-[#E5C158]/20'
+                      ? 'border-[#C5A880] bg-[#C5A880]/5'
+                      : 'border-white/10 hover:border-[#C5A880]/20'
                   }`}
                 >
                   <div className="aspect-[16/10] overflow-hidden rounded-xl relative shadow-xs bg-zinc-950 mb-4">
@@ -229,7 +229,7 @@ export default function FilmsPage({ config, films }: FilmsPageProps) {
                   </div>
 
                   <div className="space-y-1">
-                    <span className="text-[0.58rem] font-mono tracking-widest text-[#E5C158] uppercase">
+                    <span className="text-[0.58rem] font-mono tracking-widest text-[#C5A880] uppercase">
                       {film.location.toUpperCase()}
                     </span>
                     <h4 className="text-sm font-semibold tracking-tight text-white">

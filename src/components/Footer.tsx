@@ -42,9 +42,9 @@ export default function Footer({ config, onNavigate }: FooterProps) {
               <div className="flex items-baseline relative">
                 {/* Visual "SG" logo built with beautiful serif typography like PR */}
                 <span className="text-6xl md:text-7xl font-light tracking-tighter leading-none font-serif text-white select-none">
-                  S<span className="italic text-[#E5C158] font-normal">G</span>
+                  S<span className="italic text-[#C5A880] font-normal">G</span>
                 </span>
-                <span className="text-[#E5C158] text-[10px] absolute -bottom-1 right-2 animate-pulse">&bull;</span>
+                <span className="text-[#C5A880] text-[10px] absolute -bottom-1 right-2 animate-pulse">&bull;</span>
               </div>
               <div className="pt-2">
                 <span className="block text-xs sm:text-[0.72rem] font-bold tracking-[0.4em] text-white uppercase font-sans">
@@ -81,7 +81,7 @@ export default function Footer({ config, onNavigate }: FooterProps) {
                 <li key={link.id}>
                   <button
                     onClick={() => onNavigate(link.id)}
-                    className="cursor-pointer text-[0.62rem] sm:text-[0.68rem] font-semibold tracking-[0.3em] uppercase text-zinc-400 hover:text-[#E5C158] hover:tracking-[0.35em] transition-all duration-300 block"
+                    className="cursor-pointer text-[0.62rem] sm:text-[0.68rem] font-semibold tracking-[0.3em] uppercase text-zinc-400 hover:text-[#C5A880] hover:tracking-[0.35em] transition-all duration-300 block"
                   >
                     {link.label}
                   </button>

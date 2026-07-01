@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import Lenis from 'lenis';
 import { 
   DEFAULT_THEME_CONFIG, 
   DEFAULT_PHOTOS, 
@@ -22,6 +23,7 @@ import ContactSection from './components/ContactSection';
 import FilmGlance from './components/FilmGlance';
 import DoublePhotoSplit from './components/DoublePhotoSplit';
 import Footer from './components/Footer';
+import SectionDivider from './components/SectionDivider';
 // Importing Brand New Individual Page Components
 import AboutPage from './components/AboutPage';
 import PortfolioPage from './components/PortfolioPage';
@@ -41,6 +43,30 @@ export default function App() {
 
   // Active page routing state
   const [currentPage, setCurrentPage] = useState<string>('home');
+  const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
+
+  useEffect(() => {
+    // Instantiate Lenis for smooth scroll inertia
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Expo ease-out
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+    setLenisInstance(lenis);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   // Lighthouse Lightbox indices
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
@@ -48,7 +74,11 @@ export default function App() {
   // Scroll to top on page switches
   const handleNavigate = (pageId: string) => {
     setCurrentPage(pageId);
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (lenisInstance) {
+      lenisInstance.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
   };
 
   // Keyboard and modal helpers
@@ -82,16 +112,26 @@ export default function App() {
     }
   };
 
+  const handleToggleTheme = () => {
+    setConfig((prev) => ({
+      ...prev,
+      themeMode: prev.themeMode === 'dark' ? 'light' : 'dark'
+    }));
+  };
+
   // Typography Class compilation
-  const fontPresetClassName = 'font-sans antialiased text-zinc-100 leading-relaxed font-normal';
+  const isDarkMode = config.themeMode === 'dark';
+  const mainBgClass = isDarkMode ? 'bg-[#060709] text-zinc-100' : 'bg-[#E4E3DE] text-zinc-900';
+  const fontPresetClassName = `font-sans antialiased leading-relaxed font-normal ${mainBgClass}`;
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 selection:bg-[#E5C158] selection:text-[#060709] pb-12 ${fontPresetClassName} bg-[#060709] text-white`}>
+    <div className={`min-h-screen transition-colors duration-500 selection:bg-[#C5A880] selection:text-[#060709] pb-12 ${fontPresetClassName}`}>
       {/* 1. Header Navigation block */}
       <Header 
         config={config} 
         currentPage={currentPage}
         onNavigate={handleNavigate}
+        onThemeToggle={handleToggleTheme}
       />
 
       {/* Main Pages Router with luxury fade animations */}
@@ -118,6 +158,14 @@ export default function App() {
                 onNavigate={handleNavigate}
               />
               
+              {/* Premium Space Separator Chapter 1 */}
+              <SectionDivider 
+                category="CURATED PORTFOLIO"
+                title="RESONANCE OF LOVE"
+                subtitle="Honest stories told through cinematic frames"
+                config={config}
+              />
+              
               {/* 3. Filterable Signature Gallery block (Curated for Home) */}
               <GallerySection 
                 config={config} 
@@ -129,19 +177,35 @@ export default function App() {
 
               {/* Cinematic Video/Film Option Glance */}
               {config.showFilms && (
-                <FilmGlance 
-                  config={config} 
-                  films={films} 
-                  onNavigate={handleNavigate} 
-                />
+                <>
+                  <SectionDivider 
+                    category="CINEMATIC REEL"
+                    title="MOTION PORTRAITS"
+                    subtitle="The rhythm of luxury films and organic visual motion"
+                    config={config}
+                  />
+                  <FilmGlance 
+                    config={config} 
+                    films={films} 
+                    onNavigate={handleNavigate} 
+                  />
+                </>
               )}
 
               {/* 4. Optional Testimonial Carousel block */}
               {config.showReviews && (
-                <Testimonials 
-                  config={config} 
-                  reviews={reviews} 
-                />
+                <>
+                  <SectionDivider 
+                    category="THE CREATOR & WORDS"
+                    title="BEHIND THE LENS"
+                    subtitle="Sourav Gupta — crafting fine-art memories for rare souls"
+                    config={config}
+                  />
+                  <Testimonials 
+                    config={config} 
+                    reviews={reviews} 
+                  />
+                </>
               )}
 
               {/* 5. Minimalist Booking Form landing teaser block */}

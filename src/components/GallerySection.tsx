@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'motion/react';
 import { Quote, MapPin, Calendar, ArrowRight } from 'lucide-react';
 import { PhotoItem, ThemeConfig } from '../types';
 
@@ -80,6 +80,18 @@ const PRESET_CLIENT_REVIEWS: ClientReview[] = [
 
 export default function GallerySection({ config, onNavigate }: GallerySectionProps) {
   const [activeIdx, setActiveIdx] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Elegant scroll driven parallax and scale
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start']
+  });
+
+  const bgY = useTransform(scrollYProgress, [0, 1], [-45, 45]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1.12, 1.02]);
+  const smoothBgY = useSpring(bgY, { stiffness: 60, damping: 22, mass: 0.4 });
+  const smoothBgScale = useSpring(bgScale, { stiffness: 60, damping: 22, mass: 0.4 });
 
   // Pick a random next index to "shuffle" one by one automatically
   const handleShuffle = () => {
@@ -111,7 +123,7 @@ export default function GallerySection({ config, onNavigate }: GallerySectionPro
       }`}
     >
       {/* Absolute fullscreen slider with zero gaps */}
-      <div className="w-full relative overflow-hidden bg-zinc-950 h-[70vh] sm:h-[80vh] md:h-[85vh] lg:h-[90vh] shadow-inner">
+      <div ref={containerRef} className="w-full relative overflow-hidden bg-zinc-950 h-[70vh] sm:h-[80vh] md:h-[85vh] lg:h-[90vh] shadow-inner">
         
         <AnimatePresence mode="wait">
           <motion.div
@@ -124,10 +136,11 @@ export default function GallerySection({ config, onNavigate }: GallerySectionPro
           >
             {/* Couple Photograph backdrop cover - individual image vivid behind text */}
             <div className="absolute inset-0 w-full h-full overflow-hidden select-none pointer-events-none">
-              <img
+              <motion.img
+                style={{ y: smoothBgY, scale: smoothBgScale }}
                 src={review.imageUrl}
                 alt={review.author}
-                className="w-full h-full object-cover object-center scale-100 transition-transform duration-[5000ms] ease-out opacity-65"
+                className="absolute -inset-y-12 left-0 right-0 w-full h-[calc(100%+6rem)] object-cover object-center opacity-65"
                 referrerPolicy="no-referrer"
               />
               {/* Rich cinematic vignette layers to protect contrast of the elegant text */}

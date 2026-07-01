@@ -8,6 +8,28 @@ interface ContactPageProps {
 }
 
 export default function ContactPage({ config }: ContactPageProps) {
+  const isDarkMode = config.themeMode === 'dark';
+
+  const formBgClass = isDarkMode 
+    ? 'bg-[#0E0F12] border-white/10 text-white shadow-[0_20px_50px_rgba(0,0,0,0.5)]' 
+    : 'bg-[#EBEAE6] border-zinc-300 text-zinc-900 shadow-[0_20px_50px_rgba(0,0,0,0.08)]';
+    
+  const inputClass = `w-full text-xs font-sans tracking-wide p-3.5 border rounded-xl focus:outline-hidden focus:border-[#C5A880] focus:ring-1 focus:ring-[#C5A880]/50 transition-all duration-300 ${
+    isDarkMode 
+      ? 'border-white/10 bg-[#141519] text-white placeholder-zinc-500' 
+      : 'border-zinc-300 bg-white text-zinc-900 placeholder-zinc-400'
+  }`;
+
+  const selectClass = `w-full text-xs font-sans p-4 border rounded-xl focus:outline-hidden focus:border-[#C5A880] transition-all duration-300 cursor-pointer ${
+    isDarkMode 
+      ? 'border-white/10 bg-[#141519] text-white' 
+      : 'border-zinc-300 bg-white text-zinc-900'
+  }`;
+
+  const textTitleClass = isDarkMode ? 'text-white' : 'text-zinc-900';
+  const textSubClass = isDarkMode ? 'text-zinc-300' : 'text-zinc-700';
+  const borderClass = isDarkMode ? 'border-white/10' : 'border-zinc-300';
+
   // Form states
   const [formStep, setFormStep] = useState<number>(1);
   const [formData, setFormData] = useState({
@@ -73,15 +95,15 @@ export default function ContactPage({ config }: ContactPageProps) {
           {/* Main Booking Form Column (Left/8 columns) */}
           <div className="lg:col-span-8">
             <div className="space-y-4 mb-12">
-              <span className="text-[#E5C158] text-[0.62rem] tracking-[0.45em] uppercase font-sans font-semibold block">
+              <span className="text-[#C5A880] text-[0.62rem] tracking-[0.45em] uppercase font-sans font-semibold block">
                 COMMISSION APPLICATION
               </span>
-              <h1 className={`text-4xl md:text-5xl font-light tracking-tight text-white ${
+              <h1 className={`text-4xl md:text-5xl font-light tracking-tight ${textTitleClass} ${
                 config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'
               }`}>
-                Tell me <span className="italic font-serif text-[#E5C158]">everything</span>.
+                Tell me <span className="italic font-serif text-[#C5A880]">everything</span>.
               </h1>
-              <p className="text-xs text-zinc-300 uppercase tracking-widest max-w-xl leading-relaxed font-bold">
+              <p className={`text-xs uppercase tracking-widest max-w-xl leading-relaxed font-bold ${textSubClass}`}>
                 By maintaining a highly strict commission cap of 20 celebrations annually, we commit entirely to styling your heritage story. Complete this application to get a personalized quote.
               </p>
             </div>
@@ -94,18 +116,18 @@ export default function ContactPage({ config }: ContactPageProps) {
                   initial={{ scale: 0.95, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="p-10 border text-center space-y-6 rounded-3xl bg-[#0E0F12] border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-white"
+                  className={`p-10 border text-center space-y-6 rounded-3xl ${formBgClass}`}
                 >
-                  <span className="inline-flex p-4 bg-[#E5C158]/10 text-[#E5C158] rounded-full">
+                  <span className="inline-flex p-4 bg-[#C5A880]/10 text-[#C5A880] rounded-full">
                     <CheckCircle2 className="w-10 h-10" />
                   </span>
                   <div className="space-y-2">
-                    <h3 className="text-2xl font-light font-serif">Inquiry Registered</h3>
-                    <p className="text-xs text-zinc-300 max-w-md mx-auto leading-relaxed">
+                    <h3 className={`text-2xl font-light font-serif ${textTitleClass}`}>Inquiry Registered</h3>
+                    <p className={`text-xs max-w-md mx-auto leading-relaxed ${textSubClass}`}>
                       Thank you for trusting our studio. Clara, our lead administrative coordinator is already cataloging your venue plans. Expect a handcrafted wedding proposal in your inbox within 12 hours.
                     </p>
                   </div>
-                  <div className="w-full h-[1px] bg-white/10 my-6" />
+                  <div className={`w-full h-[1px] ${isDarkMode ? 'bg-white/10' : 'bg-zinc-300'} my-6`} />
                   <button
                     id="submit-reset-btn"
                     onClick={() => {
@@ -124,7 +146,7 @@ export default function ContactPage({ config }: ContactPageProps) {
                         story: '',
                       });
                     }}
-                    className="text-xs font-mono text-[#E5C158] hover:text-[#F3D17E] uppercase tracking-widest hover:underline cursor-pointer"
+                    className="text-xs font-mono text-[#C5A880] hover:text-[#D4B48F] uppercase tracking-widest hover:underline cursor-pointer"
                   >
                     SUBMIT ANOTHER INQUIRY
                   </button>
@@ -134,15 +156,15 @@ export default function ContactPage({ config }: ContactPageProps) {
                 <motion.form
                   key="inquire-steps"
                   onSubmit={handleSubmitInquireForm}
-                  className="p-8 md:p-10 border rounded-3xl space-y-8 bg-[#0E0F12] border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+                  className={`p-8 md:p-10 border rounded-3xl space-y-8 ${formBgClass}`}
                 >
                   {/* Step Indicators */}
-                  <div className="flex justify-between items-center text-[0.6rem] font-mono tracking-widest text-zinc-400">
-                    <span className={formStep === 1 ? 'text-[#E5C158] font-bold' : ''}>1. CORE DATA</span>
-                    <span className="w-8 h-[1px] bg-white/10" />
-                    <span className={formStep === 2 ? 'text-[#E5C158] font-bold' : ''}>2. ATMOSPHERE</span>
-                    <span className="w-8 h-[1px] bg-white/10" />
-                    <span className={formStep === 3 ? 'text-[#E5C158] font-bold' : ''}>3. YOUR TALE</span>
+                  <div className={`flex justify-between items-center text-[0.6rem] font-mono tracking-widest ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                    <span className={formStep === 1 ? 'text-[#C5A880] font-bold' : ''}>1. CORE DATA</span>
+                    <span className={`w-8 h-[1px] ${isDarkMode ? 'bg-white/10' : 'bg-zinc-300'}`} />
+                    <span className={formStep === 2 ? 'text-[#C5A880] font-bold' : ''}>2. ATMOSPHERE</span>
+                    <span className={`w-8 h-[1px] ${isDarkMode ? 'bg-white/10' : 'bg-zinc-300'}`} />
+                    <span className={formStep === 3 ? 'text-[#C5A880] font-bold' : ''}>3. YOUR TALE</span>
                   </div>
 
                   {/* Form step screens */}
@@ -154,7 +176,7 @@ export default function ContactPage({ config }: ContactPageProps) {
                     >
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                          <label className="text-[0.62rem] font-mono tracking-widest text-[#E5C158] uppercase block">
+                          <label className="text-[0.62rem] font-mono tracking-widest text-[#C5A880] uppercase block">
                             Your Full Name *
                           </label>
                           <input
@@ -164,12 +186,12 @@ export default function ContactPage({ config }: ContactPageProps) {
                             value={formData.name1}
                             onChange={handleChangeInput}
                             placeholder="Clara Bennett"
-                            className="w-full text-xs font-sans tracking-wide p-3.5 border border-white/10 bg-[#141519] text-white placeholder-zinc-500 rounded-xl focus:outline-hidden focus:border-[#E5C158] focus:ring-1 focus:ring-[#E5C158]/50 transition-all duration-300"
+                            className={inputClass}
                           />
                         </div>
 
                         <div className="space-y-2">
-                          <label className="text-[0.62rem] font-mono tracking-widest text-zinc-300 font-bold uppercase block">
+                          <label className={`text-[0.62rem] font-mono tracking-widest font-bold uppercase block ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
                             Partner's Name (Optional)
                           </label>
                           <input
@@ -178,14 +200,14 @@ export default function ContactPage({ config }: ContactPageProps) {
                             value={formData.name2}
                             onChange={handleChangeInput}
                             placeholder="Julian Mercer"
-                            className="w-full text-xs font-sans tracking-wide p-3.5 border border-white/10 bg-[#141519] text-white placeholder-zinc-500 rounded-xl focus:outline-hidden focus:border-[#E5C158] focus:ring-1 focus:ring-[#E5C158]/50 transition-all duration-300"
+                            className={inputClass}
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                          <label className="text-[0.62rem] font-mono tracking-widest text-[#E5C158] uppercase block">
+                          <label className="text-[0.62rem] font-mono tracking-widest text-[#C5A880] uppercase block">
                             Email Inbox Address *
                           </label>
                           <input
@@ -195,12 +217,12 @@ export default function ContactPage({ config }: ContactPageProps) {
                             value={formData.email}
                             onChange={handleChangeInput}
                             placeholder="clara@example.com"
-                            className="w-full text-xs font-sans tracking-wide p-3.5 border border-white/10 bg-[#141519] text-white placeholder-zinc-500 rounded-xl focus:outline-hidden focus:border-[#E5C158] focus:ring-1 focus:ring-[#E5C158]/50 transition-all duration-300"
+                            className={inputClass}
                           />
                         </div>
 
                         <div className="space-y-2">
-                          <label className="text-[0.62rem] font-mono tracking-widest text-[#E5C158] uppercase block">
+                          <label className="text-[0.62rem] font-mono tracking-widest text-[#C5A880] uppercase block">
                             Mobile Contact Number *
                           </label>
                           <input
@@ -210,14 +232,14 @@ export default function ContactPage({ config }: ContactPageProps) {
                             value={formData.phone}
                             onChange={handleChangeInput}
                             placeholder="+1 (416) 555-1200"
-                            className="w-full text-xs font-sans tracking-wide p-3.5 border border-white/10 bg-[#141519] text-white placeholder-zinc-500 rounded-xl focus:outline-hidden focus:border-[#E5C158] focus:ring-1 focus:ring-[#E5C158]/50 transition-all duration-300"
+                            className={inputClass}
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                          <label className="text-[0.62rem] font-mono tracking-widest text-[#E5C158] uppercase block">
+                          <label className="text-[0.62rem] font-mono tracking-widest text-[#C5A880] uppercase block">
                             Celebration Date *
                           </label>
                           <input
@@ -226,12 +248,12 @@ export default function ContactPage({ config }: ContactPageProps) {
                             name="date"
                             value={formData.date}
                             onChange={handleChangeInput}
-                            className="w-full text-xs font-sans p-3.5 border border-white/10 bg-[#141519] text-white rounded-xl focus:outline-hidden focus:border-[#E5C158] focus:ring-1 focus:ring-[#E5C158]/50 transition-all duration-300"
+                            className={inputClass}
                           />
                         </div>
 
                         <div className="space-y-2">
-                          <label className="text-[0.62rem] font-mono tracking-widest text-[#E5C158] uppercase block">
+                          <label className="text-[0.62rem] font-mono tracking-widest text-[#C5A880] uppercase block">
                             Venue / City Location *
                           </label>
                           <input
@@ -241,7 +263,7 @@ export default function ContactPage({ config }: ContactPageProps) {
                             value={formData.location}
                             onChange={handleChangeInput}
                             placeholder="Casa Loma, Toronto OR Destination..."
-                            className="w-full text-xs font-sans tracking-wide p-3.5 border border-white/10 bg-[#141519] text-white placeholder-zinc-500 rounded-xl focus:outline-hidden focus:border-[#E5C158] focus:ring-1 focus:ring-[#E5C158]/50 transition-all duration-300"
+                            className={inputClass}
                           />
                         </div>
                       </div>
@@ -255,39 +277,39 @@ export default function ContactPage({ config }: ContactPageProps) {
                       className="space-y-6"
                     >
                       <div className="space-y-2">
-                        <label className="text-[0.62rem] font-mono tracking-widest text-[#E5C158] uppercase block">
+                        <label className="text-[0.62rem] font-mono tracking-widest text-[#C5A880] uppercase block">
                           Desired Service Commission Category
                         </label>
                         <select
                           name="serviceType"
                           value={formData.serviceType}
                           onChange={handleChangeInput}
-                          className="w-full text-xs font-sans p-4 border border-white/10 bg-[#141519] text-white rounded-xl focus:outline-hidden focus:border-[#E5C158] transition-all duration-300 cursor-pointer"
+                          className={selectClass}
                         >
-                          <option value="photo-film" className="bg-[#141519] text-white">Intimate Cohesive Union (Photo + Film Coverage)</option>
-                          <option value="photo-only" className="bg-[#141519] text-white">Fine Art Photography Only Archive</option>
-                          <option value="film-only" className="bg-[#141519] text-white">Cinematic Wedding Filmmaking Only Archive</option>
+                          <option value="photo-film" className={isDarkMode ? 'bg-[#141519] text-white' : 'bg-white text-zinc-900'}>Intimate Cohesive Union (Photo + Film Coverage)</option>
+                          <option value="photo-only" className={isDarkMode ? 'bg-[#141519] text-white' : 'bg-white text-zinc-900'}>Fine Art Photography Only Archive</option>
+                          <option value="film-only" className={isDarkMode ? 'bg-[#141519] text-white' : 'bg-white text-zinc-900'}>Cinematic Wedding Filmmaking Only Archive</option>
                         </select>
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-[0.62rem] font-mono tracking-widest text-[#E5C158] uppercase block">
+                        <label className="text-[0.62rem] font-mono tracking-widest text-[#C5A880] uppercase block">
                           Visual Atmosphere & Styling Preference
                         </label>
                         <select
                           name="vibe"
                           value={formData.vibe}
                           onChange={handleChangeInput}
-                          className="w-full text-xs font-sans p-4 border border-white/10 bg-[#141519] text-white rounded-xl focus:outline-hidden focus:border-[#E5C158] transition-all duration-300 cursor-pointer"
+                          className={selectClass}
                         >
-                          <option value="editorial" className="bg-[#141519] text-white">Curated Fine-Art Editorial (Bespoke Posing, High Contrast)</option>
-                          <option value="documentary" className="bg-[#141519] text-white">True candid documentary journal (Sincere, Pure, Raw Light)</option>
-                          <option value="dynamic-mix" className="bg-[#141519] text-white">A balanced custom mix (50/50 candid spontaneity and formal direction)</option>
+                          <option value="editorial" className={isDarkMode ? 'bg-[#141519] text-white' : 'bg-white text-zinc-900'}>Curated Fine-Art Editorial (Bespoke Posing, High Contrast)</option>
+                          <option value="documentary" className={isDarkMode ? 'bg-[#141519] text-white' : 'bg-white text-zinc-900'}>True candid documentary journal (Sincere, Pure, Raw Light)</option>
+                          <option value="dynamic-mix" className={isDarkMode ? 'bg-[#141519] text-white' : 'bg-white text-zinc-900'}>A balanced custom mix (50/50 candid spontaneity and formal direction)</option>
                         </select>
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-[0.62rem] font-mono tracking-widest text-[#E5C158] uppercase block">
+                        <label className="text-[0.62rem] font-mono tracking-widest text-[#C5A880] uppercase block">
                           Anticipated Investment Budget Bracket
                         </label>
                         <div className="grid grid-cols-2 gap-4">
@@ -298,8 +320,10 @@ export default function ContactPage({ config }: ContactPageProps) {
                               onClick={() => setFormData((p) => ({ ...p, budget: opt }))}
                               className={`p-4 rounded-xl text-xs font-sans border text-left transition-colors duration-300 ${
                                 formData.budget === opt
-                                  ? 'border-[#E5C158] bg-[#E5C158]/5 text-[#E5C158] font-semibold'
-                                  : 'border-white/10 bg-[#141519] text-zinc-300 hover:border-[#E5C158]/30'
+                                  ? 'border-[#C5A880] bg-[#C5A880]/10 text-[#C5A880] font-semibold'
+                                  : isDarkMode
+                                    ? 'border-white/10 bg-[#141519] text-zinc-300 hover:border-[#C5A880]/30'
+                                    : 'border-zinc-300 bg-white text-zinc-700 hover:border-[#C5A880]/40'
                               }`}
                             >
                               {opt}
@@ -317,7 +341,7 @@ export default function ContactPage({ config }: ContactPageProps) {
                       className="space-y-6"
                     >
                       <div className="space-y-2">
-                        <label className="text-[0.62rem] font-mono tracking-widest text-[#E5C158] uppercase block">
+                        <label className="text-[0.62rem] font-mono tracking-widest text-[#C5A880] uppercase block">
                           Tell me your unique story, vibes & expectations *
                         </label>
                         <textarea
@@ -327,17 +351,21 @@ export default function ContactPage({ config }: ContactPageProps) {
                           value={formData.story}
                           onChange={handleChangeInput}
                           placeholder="How did you cross paths? What parts of your celebration are you most passionate about capturing? Let us feel your vision..."
-                          className="w-full text-xs font-sans p-4 border border-white/10 bg-[#141519] text-white placeholder-zinc-500 rounded-xl focus:outline-hidden focus:border-[#E5C158] focus:ring-1 focus:ring-[#E5C158]/50 resize-none leading-relaxed"
+                          className={inputClass + " resize-none leading-relaxed"}
                         />
                       </div>
 
-                      <div className="p-4 bg-[#E5C158]/5 border border-[#E5C158]/10 rounded-xl space-y-1.5 flex items-start gap-3">
-                        <Award className="w-5 h-5 text-[#E5C158] mt-0.5 shrink-0" />
+                      <div className={`p-4 rounded-xl space-y-1.5 flex items-start gap-3 border ${
+                        isDarkMode 
+                          ? 'bg-[#C5A880]/5 border-[#C5A880]/10' 
+                          : 'bg-[#C5A880]/10 border-[#C5A880]/20'
+                      }`}>
+                        <Award className="w-5 h-5 text-[#C5A880] mt-0.5 shrink-0" />
                         <div className="space-y-0.5">
-                          <span className="text-[0.65rem] font-mono text-zinc-400 block uppercase">
+                          <span className={`text-[0.65rem] font-mono block uppercase ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
                             AUTHENTIC ARCHIVES GUARANTEE
                           </span>
-                          <span className="text-[0.6rem] text-zinc-300 block leading-relaxed uppercase font-semibold">
+                          <span className={`text-[0.6rem] block leading-relaxed uppercase font-semibold ${isDarkMode ? 'text-zinc-300' : 'text-zinc-800'}`}>
                             Your reservation respects strict, custom visual direction. We ensure secure delivery of metadata frames.
                           </span>
                         </div>
@@ -346,7 +374,7 @@ export default function ContactPage({ config }: ContactPageProps) {
                   )}
 
                   {/* Operational Flow Buttons */}
-                  <div className="flex justify-between pt-6 border-t border-white/10">
+                  <div className={`flex justify-between pt-6 border-t ${borderClass}`}>
                     <button
                       id="step-prev"
                       type="button"
@@ -355,7 +383,9 @@ export default function ContactPage({ config }: ContactPageProps) {
                       className={`px-5 py-2.5 text-[0.62rem] select-none tracking-widest uppercase rounded-lg border font-mono font-medium ${
                         formStep === 1
                           ? 'opacity-30 pointer-events-none'
-                          : 'border-white/10 text-zinc-400 hover:text-[#E5C158]'
+                          : isDarkMode 
+                            ? 'border-white/10 text-zinc-400 hover:text-[#C5A880]'
+                            : 'border-zinc-300 text-zinc-600 hover:text-[#C5A880]'
                       }`}
                     >
                       &larr; BACK
@@ -366,7 +396,7 @@ export default function ContactPage({ config }: ContactPageProps) {
                         id="step-next"
                         type="button"
                         onClick={handleNextStep}
-                        className="px-6 py-2.5 text-[0.62rem] cursor-pointer tracking-widest uppercase rounded-lg bg-[#E5C158] hover:bg-[#F3D17E] font-mono font-semibold text-[#060709]"
+                        className="px-6 py-2.5 text-[0.62rem] cursor-pointer tracking-widest uppercase rounded-lg bg-[#C5A880] hover:bg-[#D4B48F] font-mono font-semibold text-[#060709]"
                       >
                         CONTINUE &rarr;
                       </button>
@@ -374,7 +404,7 @@ export default function ContactPage({ config }: ContactPageProps) {
                       <button
                         id="form-submit"
                         type="submit"
-                        className="px-6 py-2.5 text-[0.62rem] cursor-pointer tracking-widest uppercase rounded-lg bg-[#E5C158] hover:bg-[#F3D17E] text-[#060709] font-mono font-semibold flex items-center gap-2"
+                        className="px-6 py-2.5 text-[0.62rem] cursor-pointer tracking-widest uppercase rounded-lg bg-[#C5A880] hover:bg-[#D4B48F] text-[#060709] font-mono font-semibold flex items-center gap-2"
                       >
                          SUBMIT COMMISSION
                         <Send className="w-3 h-3" />
@@ -388,22 +418,22 @@ export default function ContactPage({ config }: ContactPageProps) {
 
           {/* Studio Info / Office Coordinates (Right/4 columns) */}
           <div className="lg:col-span-4 space-y-8 lg:sticky lg:top-28">
-            <div className="space-y-4 pl-4 border-l border-[#E5C158]/20 text-xs">
+            <div className="space-y-4 pl-4 border-l border-[#C5A880]/20 text-xs">
               <div className="space-y-1">
-                <span className="font-mono text-[#E5C158] text-[0.55rem] tracking-[0.35em] uppercase block">
+                <span className="font-mono text-[#C5A880] text-[0.55rem] tracking-[0.35em] uppercase block">
                   OFFICE COORDINATES
                 </span>
-                <p className="text-zinc-300 font-sans tracking-wide">
+                <p className={`${textSubClass} font-sans tracking-wide`}>
                   Toronto Waterfront Studios, Queens Quay West, Suite 412, Toronto, Ontario
                 </p>
               </div>
 
               <div className="space-y-1">
-                <span className="font-mono text-[#E5C158] text-[0.55rem] tracking-[0.35em] uppercase block">
+                <span className="font-mono text-[#C5A880] text-[0.55rem] tracking-[0.35em] uppercase block">
                   REPRESENTATIVE EMAIL
                 </span>
-                <p className="text-zinc-300 font-mono tracking-wider">
-                  studio@pritoreza.ca &middot; support@pritoreza.ca
+                <p className={`${textSubClass} font-mono tracking-wider`}>
+                  example@gmail.com
                 </p>
               </div>
             </div>

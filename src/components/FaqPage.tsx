@@ -76,6 +76,8 @@ export default function FaqPage({ config, onNavigate }: FaqPageProps) {
     return matchesCategory && matchesSearch;
   });
 
+  const isDarkMode = config.themeMode === 'dark';
+
   const handleSendQuestion = (e: React.FormEvent) => {
     e.preventDefault();
     if (!customQuestion.trim()) return;
@@ -86,15 +88,18 @@ export default function FaqPage({ config, onNavigate }: FaqPageProps) {
     }, 4500);
   };
 
+  const textTitleClass = isDarkMode ? 'text-white' : 'text-zinc-900';
+  const borderClass = isDarkMode ? 'border-white/10' : 'border-zinc-300';
+
   return (
     <div className="pt-28 pb-20 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
         {/* Section Header Divider Line */}
         <div className="flex items-center gap-4 mb-20">
-          <span className="text-[0.62rem] font-mono tracking-[0.45em] text-amber-500 font-bold shrink-0">
+          <span className="text-[0.62rem] font-mono tracking-[0.45em] text-[#C5A880] font-bold shrink-0">
             04 // PERSISTENT FAQS & KNOWLEDGE
           </span>
-          <div className="h-[1px] w-full bg-linear-to-r from-amber-500/30 to-transparent" />
+          <div className={`h-[1px] w-full bg-linear-to-r ${isDarkMode ? 'from-white/10' : 'from-zinc-300'} to-transparent`} />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
@@ -102,18 +107,18 @@ export default function FaqPage({ config, onNavigate }: FaqPageProps) {
           {/* FAQ Column (Left/8) */}
           <div className="lg:col-span-8 space-y-8">
             <div className="space-y-4">
-              <h1 className={`text-3xl md:text-5xl font-light tracking-tight pb-3 ${
+              <h1 className={`text-3xl md:text-5xl font-light tracking-tight pb-3 ${textTitleClass} ${
                 config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'
               }`}>
-                Answering your <span className="italic font-serif text-amber-500">questions</span>.
+                Answering your <span className="italic font-serif text-[#C5A880]">questions</span>.
               </h1>
-              <p className="text-xs text-zinc-800 dark:text-zinc-200 uppercase tracking-widest max-w-xl leading-relaxed font-semibold">
+              <p className={`text-xs uppercase tracking-widest max-w-xl leading-relaxed font-semibold ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
                 Transparency is a core foundation of our boutique studio. Read through detail procedures to coordinate seamless photography sessions.
               </p>
             </div>
 
             {/* Filter Tools */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-6 border-t border-zinc-200 dark:border-zinc-800 pb-2">
+            <div className={`flex flex-col md:flex-row md:items-center justify-between gap-4 pt-6 border-t ${borderClass} pb-2`}>
               <div className="flex flex-wrap gap-2 text-xs">
                 {['All', 'Booking', 'Photography', 'Cinematography', 'Post-Production'].map((cat) => (
                   <button
@@ -121,8 +126,10 @@ export default function FaqPage({ config, onNavigate }: FaqPageProps) {
                     onClick={() => setActiveCategory(cat)}
                     className={`py-2 px-4 rounded-xl font-sans tracking-wide border transition-all cursor-pointer ${
                       activeCategory === cat
-                        ? 'border-amber-500/80 bg-amber-500/10 text-amber-500 font-semibold'
-                        : 'border-zinc-200 dark:border-zinc-800 hover:border-amber-500/30 text-zinc-500'
+                        ? 'border-[#C5A880]/80 bg-[#C5A880]/10 text-[#C5A880] font-semibold'
+                        : isDarkMode
+                          ? 'border-white/10 hover:border-[#C5A880]/30 text-zinc-400'
+                          : 'border-zinc-300 hover:border-[#C5A880]/30 text-zinc-600'
                     }`}
                   >
                     {cat}
@@ -138,7 +145,11 @@ export default function FaqPage({ config, onNavigate }: FaqPageProps) {
                   placeholder="Quick keyword..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-9 pr-3 py-2 w-full md:w-52 border border-zinc-200 dark:border-zinc-800 rounded-xl text-xs font-sans focus:outline-hidden focus:border-amber-500/50"
+                  className={`pl-9 pr-3 py-2 w-full md:w-52 border rounded-xl text-xs font-sans focus:outline-hidden focus:border-[#C5A880]/50 ${
+                    isDarkMode 
+                      ? 'border-white/10 bg-[#141519] text-white placeholder-zinc-500' 
+                      : 'border-zinc-300 bg-white text-zinc-900 placeholder-zinc-400'
+                  }`}
                 />
               </div>
             </div>
@@ -152,8 +163,10 @@ export default function FaqPage({ config, onNavigate }: FaqPageProps) {
                     key={faq.id}
                     className={`border rounded-2xl transition-all duration-300 ${
                       isOpen 
-                        ? 'border-amber-500/40 bg-linear-to-b from-amber-500/5 to-transparent' 
-                        : 'border-zinc-100 dark:border-zinc-900/60 hover:border-amber-500/15'
+                        ? 'border-[#C5A880]/40 bg-linear-to-b from-[#C5A880]/5 to-transparent' 
+                        : isDarkMode
+                          ? 'border-white/10 hover:border-[#C5A880]/15'
+                          : 'border-zinc-300 hover:border-[#C5A880]/15'
                     }`}
                   >
                     <button
@@ -162,14 +175,14 @@ export default function FaqPage({ config, onNavigate }: FaqPageProps) {
                       className="w-full flex justify-between items-center text-left p-6 gap-4 cursor-pointer"
                     >
                       <div className="space-y-1">
-                        <span className="text-[0.6rem] font-mono tracking-widest text-amber-500 uppercase">
+                        <span className="text-[0.6rem] font-mono tracking-widest text-[#C5A880] uppercase">
                           {faq.category}
                         </span>
-                        <h3 className={`text-base font-medium tracking-tight text-zinc-900 dark:text-zinc-200 font-sans`}>
+                        <h3 className={`text-base font-medium tracking-tight font-sans ${isDarkMode ? 'text-zinc-200' : 'text-zinc-900'}`}>
                           {faq.question}
                         </h3>
                       </div>
-                      <span className="p-2 border border-zinc-100 dark:border-zinc-800 rounded-lg text-amber-500 shrink-0">
+                      <span className={`p-2 border rounded-lg text-[#C5A880] shrink-0 ${isDarkMode ? 'border-white/10' : 'border-zinc-300'}`}>
                         {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                       </span>
                     </button>
@@ -183,7 +196,7 @@ export default function FaqPage({ config, onNavigate }: FaqPageProps) {
                           transition={{ duration: 0.35, ease: 'easeInOut' }}
                           className="overflow-hidden"
                         >
-                          <p className="px-6 pb-6 text-xs text-zinc-805 dark:text-zinc-200 leading-relaxed font-sans font-medium max-w-3xl">
+                          <p className={`px-6 pb-6 text-xs leading-relaxed font-sans font-medium max-w-3xl ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
                             {faq.answer}
                           </p>
                         </motion.div>
@@ -197,36 +210,42 @@ export default function FaqPage({ config, onNavigate }: FaqPageProps) {
 
           {/* Interactive Question Desk widget (Right/4) */}
           <div className="lg:col-span-4 lg:sticky lg:top-28">
-            <div className={`p-8 border rounded-3xl ${
-              config.themeMode === 'dark' ? 'bg-zinc-900/50 border-zinc-800' : 'bg-white border-zinc-200/50 shadow-xl'
-            } space-y-6`}>
+            <div className={`p-8 border rounded-3xl space-y-6 ${
+              isDarkMode 
+                ? 'bg-[#0E0F12] border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-white' 
+                : 'bg-[#EBEAE6] border-zinc-300 shadow-[0_20px_50px_rgba(0,0,0,0.08)] text-zinc-900'
+            }`}>
               <div className="space-y-2">
-                <span className="p-3 bg-amber-500/10 text-amber-500 rounded-2xl inline-block">
+                <span className="p-3 bg-[#C5A880]/10 text-[#C5A880] rounded-2xl inline-block">
                   <MessageSquare className="w-5 h-5" />
                 </span>
                 <h3 className={`text-lg font-light tracking-tight ${config.fontPreset === 'modern-mono' ? 'font-mono' : 'font-serif'}`}>
                   Still have unanswered questions?
                 </h3>
-                <p className="text-xs text-zinc-800 dark:text-zinc-200 leading-relaxed font-medium">
+                <p className={`text-xs leading-relaxed font-medium ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
                   Write directly to our studio desk. Our administrative team will reach back with tailored replies within 12 hours.
                 </p>
               </div>
 
               <form onSubmit={handleSendQuestion} className="space-y-4 pt-2">
                 <div className="space-y-2">
-                  <label className="text-[0.62rem] font-mono tracking-widest text-amber-500 uppercase block">
+                  <label className="text-[0.62rem] font-mono tracking-widest text-[#C5A880] uppercase block">
                     Your Inquire Email
                   </label>
                   <input
                     type="email"
                     required
                     placeholder="clara@example.com"
-                    className="w-full text-xs font-sans tracking-wide p-3 border border-zinc-200 dark:border-zinc-800 bg-transparent rounded-xl focus:outline-hidden focus:border-amber-500/50"
+                    className={`w-full text-xs font-sans tracking-wide p-3.5 border rounded-xl focus:outline-hidden focus:border-[#C5A880] focus:ring-1 focus:ring-[#C5A880]/50 transition-all duration-300 ${
+                      isDarkMode 
+                        ? 'border-white/10 bg-[#141519] text-white placeholder-zinc-500' 
+                        : 'border-zinc-300 bg-white text-zinc-900 placeholder-zinc-400'
+                    }`}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[0.62rem] font-mono tracking-widest text-amber-500 uppercase block">
+                  <label className="text-[0.62rem] font-mono tracking-widest text-[#C5A880] uppercase block">
                     Your Question
                   </label>
                   <textarea
@@ -235,7 +254,11 @@ export default function FaqPage({ config, onNavigate }: FaqPageProps) {
                     value={customQuestion}
                     onChange={(e) => setCustomQuestion(e.target.value)}
                     placeholder="Ask about travel rates, scheduling timelines, second shooter availability..."
-                    className="w-full text-xs font-sans tracking-wide p-3 border border-zinc-200 dark:border-zinc-800 bg-transparent rounded-xl focus:outline-hidden focus:border-amber-500/50 resize-none"
+                    className={`w-full text-xs font-sans tracking-wide p-3.5 border rounded-xl focus:outline-hidden focus:border-[#C5A880] focus:ring-1 focus:ring-[#C5A880]/50 resize-none leading-relaxed transition-all duration-300 ${
+                      isDarkMode 
+                        ? 'border-white/10 bg-[#141519] text-white placeholder-zinc-500' 
+                        : 'border-zinc-300 bg-white text-zinc-900 placeholder-zinc-400'
+                    }`}
                   />
                 </div>
 
@@ -252,7 +275,7 @@ export default function FaqPage({ config, onNavigate }: FaqPageProps) {
                   <button
                     id="faq-submit-question-btn"
                     type="submit"
-                    className="w-full py-3.5 bg-zinc-900 border-zinc-900 text-white dark:bg-zinc-800 dark:hover:bg-zinc-700 hover:bg-black text-xs font-semibold uppercase tracking-[0.2em] rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-all hover:scale-[1.01]"
+                    className="w-full py-3.5 bg-[#C5A880] hover:bg-[#D4B48F] text-[#060709] text-xs font-semibold uppercase tracking-[0.2em] rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-all duration-300"
                   >
                     <Send className="w-3.5 h-3.5" />
                     SEND studio QUESTION
@@ -260,11 +283,11 @@ export default function FaqPage({ config, onNavigate }: FaqPageProps) {
                 )}
               </form>
 
-              <div className="border-t border-zinc-100 dark:border-zinc-800 pt-4 text-center">
+              <div className={`border-t pt-4 text-center ${borderClass}`}>
                 <button
                   id="faq-back-contact-btn"
                   onClick={() => onNavigate('contact')}
-                  className="text-[0.62rem] font-mono text-amber-500 tracking-widest uppercase hover:underline"
+                  className="text-[0.62rem] font-mono text-[#C5A880] tracking-widest uppercase hover:underline cursor-pointer"
                 >
                   Jump to Reserve Form &rarr;
                 </button>

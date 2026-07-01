@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import { ThemeConfig, PhotoItem } from '../types';
 
 interface DoublePhotoSplitProps {
@@ -16,28 +16,39 @@ export default function DoublePhotoSplit({ config, photos }: DoublePhotoSplitPro
   const fontPreset = config.fontPreset;
   const signatureFont = fontPreset === 'modern-mono' ? 'font-mono uppercase tracking-widest' : 'font-serif';
 
+  // Elegant opposite parallax scrolling transforms
+  const { scrollY } = useScroll();
+  const yLeft = useTransform(scrollY, [0, 1000], [0, -60]);
+  const yRight = useTransform(scrollY, [0, 1000], [0, 60]);
+  const smoothYLeft = useSpring(yLeft, { stiffness: 60, damping: 22, mass: 0.4 });
+  const smoothYRight = useSpring(yRight, { stiffness: 60, damping: 22, mass: 0.4 });
+
   return (
     <section 
       id="photo-film-split-hero"
-      className="relative w-full h-screen min-h-[480px] overflow-hidden mt-0 flex flex-col justify-stretch transition-colors duration-500 bg-[#060709]"
+      className={`relative w-full h-screen min-h-[480px] overflow-hidden mt-0 flex flex-col justify-stretch transition-colors duration-500 ${isDarkMode ? 'bg-[#060709]' : 'bg-[#E4E3DE]'}`}
     >
       {/* Grid containing two dynamic full-height pictures with zero gap, edge-to-edge */}
       <div className="grid grid-cols-2 gap-0 w-full h-full relative overflow-hidden shadow-sm">
         
         {/* Left Side: Photo Panel */}
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ clipPath: 'inset(0 100% 0 0)' }}
+          animate={{ clipPath: 'inset(0 0% 0 0)' }}
+          transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
           className="relative w-full h-full overflow-hidden group select-none bg-zinc-900"
         >
           {/* Transparent Vignette Overlay for text readability */}
           <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-all duration-700 z-10" />
           
-          <img
+          <motion.img
+            style={{ y: smoothYLeft }}
+            initial={{ scale: 1.15 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 2.4, ease: [0.16, 1, 0.3, 1] }}
             src={photoLeft.url}
             alt={photoLeft.title}
-            className="absolute inset-0 w-full h-full object-cover object-center scale-[1.01] group-hover:scale-[1.04] transition-all duration-[1800ms] ease-out"
+            className="absolute -inset-y-16 left-0 right-0 w-full h-[calc(100%+8rem)] object-cover object-center scale-[1.01] group-hover:scale-[1.04] transition-all duration-[1800ms] ease-out"
             referrerPolicy="no-referrer"
           />
           
@@ -51,18 +62,22 @@ export default function DoublePhotoSplit({ config, photos }: DoublePhotoSplitPro
 
         {/* Right Side: Film Panel */}
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ clipPath: 'inset(0 0 0 100%)' }}
+          animate={{ clipPath: 'inset(0 0 0 0%)' }}
+          transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
           className="relative w-full h-full overflow-hidden group select-none border-l border-zinc-900/15 bg-zinc-900"
         >
           {/* Transparent Vignette Overlay for text readability */}
           <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-all duration-700 z-10" />
 
-          <img
+          <motion.img
+            style={{ y: smoothYRight }}
+            initial={{ scale: 1.15 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 2.4, ease: [0.16, 1, 0.3, 1] }}
             src={photoRight.url}
             alt={photoRight.title}
-            className="absolute inset-0 w-full h-full object-cover object-center scale-[1.01] group-hover:scale-[1.04] transition-all duration-[1800ms] ease-out"
+            className="absolute -inset-y-16 left-0 right-0 w-full h-[calc(100%+8rem)] object-cover object-center scale-[1.01] group-hover:scale-[1.04] transition-all duration-[1800ms] ease-out"
             referrerPolicy="no-referrer"
           />
 
